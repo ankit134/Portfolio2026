@@ -1,52 +1,71 @@
+export const profile = {
+  name: 'Ankit Shrestha',
+  initials: 'AS.',
+  role: 'UX/UI Designer',
+  location: 'Kupondol, Lalitpur, Nepal',
+  address: 'Jwagal, Kupondol, Bagmati Province',
+  email: 'ankitshrestha543@gmail.com',
+  phone: '+977 9863198492',
+  heroSummary:
+    'Computer Engineering graduate specializing in meaningful user experiences and polished interfaces. I design flows, wireframes, and high-fidelity UI for web and mobile products—from event apps to VoIP platforms.',
+  aboutSummary:
+    'With a Bachelor’s in Computer Engineering from NCIT, I bridge design craft with technical understanding. I focus on clear user flows, prototypes in Figma, and interfaces that feel intuitive on both web and mobile.',
+  aboutSecondary:
+    'Certified through the UX/UI bootcamp at Broadway Infosys. When I’m not designing, you’ll find me with a guitar, a good book, or exploring spirituality and creativity.',
+  education: 'Bachelor’s in Computer Engineering · NCIT, Balkumari (2017–2023)',
+  certification: 'UX/UI Bootcamp · Broadway Infosys',
+  copyrightLocation: 'Lalitpur, Nepal',
+}
+
 export const navLinks = [
   { label: 'About', href: '#about' },
   { label: 'Selected Work', href: '#work' },
-  { label: 'Reviews', href: '#reviews' },
+  { label: 'Experience', href: '#experience' },
 ]
 
 export const skillTags = [
-  'User Research',
-  'Design Thinking',
-  'Design System',
-  'UX Direction',
-  'Visual Design',
-  'Product Design',
-  'Mobile App Design',
-  'Typography',
+  'Figma',
+  'Prototyping',
+  'User Flows',
+  'Wireframing',
+  'Mobile UI',
+  'Web UI',
+  'Design Audits',
+  'HTML & CSS',
 ]
 
 export const projects = [
   {
-    id: 'tradieshome',
-    category: 'Handy-man',
-    title: 'TradiesHome',
+    id: 'drop',
+    category: 'Mobile App',
+    title: 'Drop',
     description:
-      'Collaborated closely with stakeholders to define the brand identity and design the Tradies Home mobile app. Built a consistent visual and intuitive app experience, resulting in a 45% boost in brand recognition and user engagement.',
-    tags: ['User Research', 'Mobile + Web app', 'Design System', 'Interface design', 'UI & UX design'],
-    mockBg: 'from-emerald-950 via-teal-900 to-emerald-800',
-    accent: '#10b981',
+      'An event-journey mobile application focused on events and planning—helping users organize timelines and storage needs across different types of events with a clear, stage-by-stage flow.',
+    tags: ['Mobile App', 'User Flows', 'UI Design', 'Prototyping'],
+    mockBg: 'from-rose-950 via-fuchsia-900 to-purple-950',
+    accent: '#f472b6',
     layout: 'normal',
   },
   {
-    id: 'fishking',
-    category: 'RMS',
-    title: 'Fishking',
+    id: 'tradieshome',
+    category: 'Job Portal',
+    title: 'TradiesHome',
     description:
-      'Redesigned the Fishking web app and designed mobile apps for both Users and Admins. Streamlined workflows led to a 40% increase in task completion for operators and a 90% reduction in missed orders through real-time tracking enhancements.',
-    tags: ['User Research', 'Design System', 'Mobile + Web app', 'UI & UX design', 'Brand guidelines'],
-    mockBg: 'from-sky-950 via-blue-900 to-indigo-900',
-    accent: '#38bdf8',
+      'A dual-sided job portal connecting Tradies (professionals seeking work) with Homeowners (clients posting jobs). Designed flows and interfaces that make discovery, matching, and communication straightforward on mobile.',
+    tags: ['Mobile App', 'User Flows', 'Wireframes', 'UI/UX Design'],
+    mockBg: 'from-emerald-950 via-teal-900 to-emerald-800',
+    accent: '#10b981',
     layout: 'reverse',
   },
   {
-    id: 'reppro',
-    category: 'Salesforce',
-    title: 'Reppro',
+    id: 'leadhead',
+    category: 'SaaS / CRM',
+    title: 'Leadhead',
     description:
-      'Redesigned the web and mobile experience for Reppro, streamlining user flows and removing redundant steps to reduce friction. The updated experience led to a 30% faster task completion time and a 20% increase in productivity within the first month post-launch.',
-    tags: ['Mobile + Web app', 'UX Direction', 'Design System', 'Interface design', 'Brand guidelines'],
-    mockBg: 'from-violet-950 via-purple-900 to-fuchsia-950',
-    accent: '#a78bfa',
+      'A business software system for keeping customer contacts up to date and tracking every customer account—structured dashboards and detail views to support sales and relationship management.',
+    tags: ['Web App', 'Dashboard UI', 'Information Architecture', 'Prototyping'],
+    mockBg: 'from-sky-950 via-blue-900 to-indigo-900',
+    accent: '#38bdf8',
     layout: 'normal',
   },
   {
@@ -54,76 +73,76 @@ export const projects = [
     category: 'VoIP',
     title: 'Calilio',
     description:
-      'Contributed to the redesign of key Calilio web pages—including the Affiliate, Pricing, Country Code, and Blog pages—under senior guidance. Focused on improving content clarity, responsive layout systems, and user navigation, resulting in a 25% increase in user engagement.',
-    tags: ['User Research', 'Design System', 'UI & UX design', 'Web app + Website'],
+      'Calilio is a cloud-based business phone system built on VoIP—streamlining business communications. Contributed to web experiences with emphasis on clarity, responsive layouts, and intuitive navigation.',
+    tags: ['Web App', 'UI/UX Design', 'Responsive Design', 'VoIP'],
     mockBg: 'from-orange-950 via-amber-900 to-orange-900',
     accent: '#FF5733',
     layout: 'reverse',
   },
 ]
 
-export const testimonials = [
+export const experience = [
   {
-    quote:
-      'Beyond the craft, MK is a supportive teammate. Thoughtful in critiques, generous with knowledge, and grounded in humility.',
-    name: 'Sunil Khatri',
-    role: 'Head of Design',
-    span: 'md:row-span-1',
-  },
-  {
-    quote:
-      "MK's designs came in with edge cases clearly defined, validation states included, and consistent behavior across flows. It made QA smoother and more predictable, even in tight sprints.",
-    name: 'Amrit Thapa',
-    role: 'Quality Assurance',
+    id: 'ganesh',
+    company: 'Ganesh Computing Pvt. Ltd.',
+    role: 'Associate UX/UI Designer',
+    period: 'Aug 2025 — Present',
+    location: 'Kalanki, Kathmandu',
+    highlights: [
+      'Designed user flows with seamless transitions across product stages.',
+      'Built clean, visually appealing interfaces for mobile applications.',
+      'Ran design reviews and identified areas for UX improvement.',
+    ],
     span: 'md:row-span-2',
   },
   {
-    quote:
-      'Manoj understood the technical constraints and worked with us, not against us. The designs were beautiful and buildable.',
-    name: 'Himani Gyawali',
-    role: 'WP Developer',
+    id: 'varosa',
+    company: 'Varosa Technology',
+    role: 'Associate UX/UI Designer',
+    period: 'May 2024 — Jan 2025',
+    location: 'Jhamsikhel, Lalitpur',
+    highlights: [
+      'Designed flows and UI for web and mobile products.',
+      'Created wireframes and prototypes for stakeholders and engineering.',
+      'Conducted design audits on ongoing projects.',
+    ],
     span: 'md:row-span-1',
   },
   {
-    quote:
-      'MK was always aligned with product vision while bringing a fresh perspective to usability. Every idea was challenged for the right reasons — with the end user in mind.',
-    name: 'Samir Gautam',
-    role: 'Java Developer (PM)',
-    span: 'md:row-span-2',
-  },
-  {
-    quote:
-      'I never had to guess what should happen on screen. States were well-defined, responsive behavior was mapped out, and components were consistent across pages.',
-    name: 'Bigyan Bhandari',
-    role: 'Front-End Developer',
+    id: 'ekbana',
+    company: 'EKBANA',
+    role: 'Intern Frontend Developer',
+    period: 'Nov 2022 — Feb 2023',
+    location: 'Kupondol, Lalitpur',
+    highlights: [
+      'Built static pages with HTML, CSS, and Bootstrap.',
+      'Applied design principles, color theory, and typography.',
+      'Used Git and GitHub for version control and deployment.',
+    ],
     span: 'md:row-span-1',
   },
   {
-    quote:
-      'Every time I got feedback from Manoj, I left with clearer direction and more confidence in my own designs.',
-    name: 'Aasamsha Parajuli',
-    role: 'UI/UX Designer',
-    span: 'md:row-span-2',
-  },
-  {
-    quote:
-      'You can count on MK to see the bigger picture and the details. That balance makes my work consistently impactful.',
-    name: 'Abishek Adhikari',
-    role: 'Product Designer',
+    id: 'rumsan',
+    company: 'Rumsan Technology',
+    role: 'Intern Frontend Developer',
+    period: 'Aug 2021 — Oct 2021',
+    location: 'Jhamsikhel, Lalitpur',
+    highlights: [
+      'Strengthened fundamentals in HTML, CSS, and Git workflows.',
+      'Reviewed operations and suggested front-end improvements.',
+    ],
     span: 'md:row-span-1',
   },
   {
-    quote:
-      'Designs were optimized beautifully for mobile — screen transitions, touch targets, and platform behaviors were all thoughtfully handled.',
-    name: 'Amit Yadav',
-    role: 'Mobile Developer',
-    span: 'md:row-span-2',
-  },
-  {
-    quote:
-      'It was clear from the start that MK thinks in systems. Every screen was backed with logic and understanding of how the backend would support it.',
-    name: 'Abhishek Maharjan',
-    role: 'Java Developer',
+    id: 'batti',
+    company: 'Batti Baliyo',
+    role: 'Sales & Marketing',
+    period: 'Jul 2019 — Sep 2021',
+    location: 'Remote',
+    highlights: [
+      'Boosted brand visibility through field and digital marketing.',
+      'Created SEO-friendly content using client and team feedback.',
+    ],
     span: 'md:row-span-1',
   },
 ]
@@ -132,10 +151,12 @@ export const footerNav = [
   { label: 'Home', href: '#' },
   { label: 'About', href: '#about' },
   { label: 'Work', href: '#work' },
+  { label: 'Experience', href: '#experience' },
 ]
 
 export const socialLinks = [
-  { label: 'LinkedIn', href: 'https://linkedin.com' },
-  { label: 'Twitter', href: 'https://twitter.com' },
-  { label: 'Dribbble', href: 'https://dribbble.com' },
+  { label: 'Behance', href: 'https://www.behance.net/' },
+  { label: 'GitHub', href: 'https://github.com/' },
 ]
+
+export const footerSocialIcons = ['behance', 'github']

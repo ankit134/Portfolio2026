@@ -1,4 +1,4 @@
-import { navLinks } from '../data/content'
+import { navLinks, profile } from '../data/content'
 import { useNavScrolled } from '../hooks/useNavScrolled'
 
 export default function Navbar() {
@@ -18,7 +18,7 @@ export default function Navbar() {
           className="font-sans text-lg font-bold tracking-tight text-white transition-transform duration-300 hover:scale-105 hover:opacity-90"
           aria-label="Home"
         >
-          AS.
+          {profile.initials}
         </a>
         <ul className="flex items-center gap-6 md:gap-10">
           {navLinks.map((link) => (

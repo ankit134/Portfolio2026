@@ -2,7 +2,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import SelectedWork from './components/SelectedWork'
-import Reviews from './components/Reviews'
+import Experience from './components/Experience'
 import Footer from './components/Footer'
 import AmbientBackground from './components/AmbientBackground'
 
@@ -15,7 +15,7 @@ function App() {
         <Hero />
         <About />
         <SelectedWork />
-        <Reviews />
+        <Experience />
       </main>
       <Footer />
     </div>
