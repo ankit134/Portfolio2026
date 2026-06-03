@@ -8,8 +8,245 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* —— Scroll reveal —— */
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-up {
+  transform: translateY(32px);
+}
+
+.reveal-left {
+  transform: translateX(-36px);
+}
+
+.reveal-right {
+  transform: translateX(36px);
+}
+
+.reveal-scale {
+  transform: scale(0.96);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* —— Hero entrance (page load) —— */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.hero-enter {
+  animation: hero-fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-enter-delay-1 {
+  animation-delay: 0.12s;
+}
+
+.hero-enter-delay-2 {
+  animation-delay: 0.24s;
+}
+
+.hero-enter-delay-3 {
+  animation-delay: 0.36s;
+}
+
+.hero-avatar-float {
+  animation: hero-float 5s ease-in-out infinite;
+}
+
+/* —— Interactive hovers —— */
+.hover-lift {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    background-color 0.35s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgb(0 0 0 / 0.55);
+}
+
+.hover-lift:active {
+  transform: translateY(-2px);
+}
+
+.hover-pill {
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.hover-pill:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgb(255 255 255 / 0.22);
+  background-color: rgb(255 255 255 / 0.1);
+  color: #fff;
+}
+
+.hover-mockup {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .hover-mockup {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.hover-title {
+  transition: color 0.3s ease;
+}
+
+.group:hover .hover-title {
+  color: #fff;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: right;
+  background: linear-gradient(90deg, #ff5733, #ff8a6b);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    background-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgb(255 255 255 / 0.12) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+
+.btn-glow:hover {
+  transform: translateY(-3px) scale(1.03);
+  border-color: rgb(255 87 51 / 0.45);
+  background-color: rgb(255 87 51 / 0.12);
+  box-shadow: 0 12px 32px -8px rgb(255 87 51 / 0.25);
+}
+
+.btn-glow:hover::before {
+  transform: translateX(120%);
+}
+
+.btn-glow:hover svg {
+  transform: translateX(4px);
+}
+
+.btn-glow svg {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.badge-hover {
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.badge-hover:hover {
+  transform: scale(1.05);
+  border-color: rgb(255 87 51 / 0.4);
+  box-shadow: 0 0 24px rgb(255 87 51 / 0.15);
+}
+
+.image-hover {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .image-hover {
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-enter,
+  .hero-enter-delay-1,
+  .hero-enter-delay-2,
+  .hero-enter-delay-3,
+  .hero-avatar-float {
+    animation: none;
+  }
+
+  .hover-lift:hover,
+  .hover-pill:hover,
+  .group:hover .hover-mockup,
+  .btn-glow:hover {
+    transform: none;
+  }
 }

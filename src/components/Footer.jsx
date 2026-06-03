@@ -1,4 +1,5 @@
 import { footerNav, socialLinks } from '../data/content'
+import Reveal from './Reveal'
 
 function SocialIcon({ type }) {
   const paths = {
@@ -34,75 +35,81 @@ export default function Footer() {
   return (
     <footer className="border-t border-white/[0.06] px-5 pb-8 pt-20 md:px-8 md:pt-28">
       <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <p className="text-2xl font-bold tracking-tight text-white">MK.</p>
-            <p className="mt-4 text-sm leading-relaxed text-[#8A8A93]">
-              +977-9817381132
-              <br />
-              mkmanojkarki009@gmail.com
-              <br />
-              Kathmandu, Nepal
-            </p>
+        <Reveal>
+          <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <p className="text-2xl font-bold tracking-tight text-white transition-transform duration-300 hover:scale-105">
+                MK.
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-[#8A8A93]">
+                +977-9817381132
+                <br />
+                mkmanojkarki009@gmail.com
+                <br />
+                Kathmandu, Nepal
+              </p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-white">Social</h3>
+              <ul className="mt-4 space-y-3">
+                {socialLinks.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="nav-link text-sm text-[#8A8A93] hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-white">Navigation</h3>
+              <ul className="mt-4 space-y-3">
+                {footerNav.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className="nav-link text-sm text-[#8A8A93] hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-white">Contact</h3>
+              <p className="mt-4 text-sm leading-relaxed text-[#8A8A93]">
+                Open for product design collaborations, design systems, and UX direction for web
+                and mobile products.
+              </p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold text-white">Social</h3>
-            <ul className="mt-4 space-y-3">
-              {socialLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[#8A8A93] transition-colors hover:text-white"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-white">Navigation</h3>
-            <ul className="mt-4 space-y-3">
-              {footerNav.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-[#8A8A93] transition-colors hover:text-white"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-white">Contact</h3>
-            <p className="mt-4 text-sm leading-relaxed text-[#8A8A93]">
-              Open for product design collaborations, design systems, and UX direction for web
-              and mobile products.
-            </p>
-          </div>
-        </div>
+        </Reveal>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-white/[0.06] pt-8 md:flex-row">
-          <p className="text-xs text-[#8A8A93]">
-            © {new Date().getFullYear()} Manoj Karki · Crafted in Lalitpur, Nepal · Namaste 🙏
-          </p>
-          <div className="flex items-center gap-4">
-            {['linkedin', 'twitter', 'dribbble'].map((type) => (
-              <a
-                key={type}
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-[#8A8A93] transition-colors hover:border-white/20 hover:text-white"
-                aria-label={type}
-              >
-                <SocialIcon type={type} />
-              </a>
-            ))}
+        <Reveal delay={120}>
+          <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-white/[0.06] pt-8 md:flex-row">
+            <p className="text-xs text-[#8A8A93]">
+              © {new Date().getFullYear()} Manoj Karki · Crafted in Lalitpur, Nepal · Namaste 🙏
+            </p>
+            <div className="flex items-center gap-4">
+              {['linkedin', 'twitter', 'dribbble'].map((type) => (
+                <a
+                  key={type}
+                  href="#"
+                  className="hover-lift flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-[#8A8A93] hover:border-[#FF5733]/40 hover:text-white hover:shadow-[0_0_20px_rgba(255,87,51,0.2)]"
+                  aria-label={type}
+                >
+                  <SocialIcon type={type} />
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </footer>
   )
