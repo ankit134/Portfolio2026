@@ -1,18 +1,96 @@
-# React + Vite
+# Ankit Shrestha — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A single-page portfolio for **Ankit Shrestha**, UX/UI Designer based in Nepal. Built with React and Tailwind CSS, inspired by a minimal dark editorial layout with scroll-driven motion and a stacked Selected Work section.
 
-Currently, two official plugins are available:
+## Live preview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm run dev
+```
 
-## React Compiler
+Open the URL shown in the terminal (typically `http://localhost:5173`).
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Features
 
-Note: This will impact Vite dev & build performances.
+- **Hero** — Introduction, live Kathmandu clock (UTC+5:45), and scroll animations
+- **About** — Portrait, education, certification, skills marquee
+- **Selected Work** — Sticky card-stack scroll effect with project visuals (Drop, TradiesHome, Leadhead, Calilio)
+- **Experience** — Work history from CV in a bento-style grid
+- **Footer** — Contact, navigation, and social links
+- Respects `prefers-reduced-motion` for accessibility
 
-## Expanding the ESLint configuration
+## Tech stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Layer | Tools |
+|--------|--------|
+| Framework | React 19 |
+| Build | Vite 8 |
+| Styling | Tailwind CSS v4 |
+| Font | Plus Jakarta Sans (Google Fonts) |
+
+## Project structure
+
+```
+src/
+├── App.jsx                 # Page layout
+├── data/content.js         # Profile, projects, experience, nav (edit copy here)
+├── components/             # UI sections
+│   ├── selected-work/      # Stacked work cards + visuals
+│   └── ...
+├── hooks/                  # Parallax, scroll stack, nav state
+└── styles/
+    └── selected-work.css   # Selected Work stack layout
+public/
+├── ankit-portrait.png      # Hero & About photo
+└── projects/               # Project preview images (SVG)
+```
+
+## Getting started
+
+### Prerequisites
+
+- Node.js 18+ (20+ recommended)
+- npm
+
+### Install
+
+```bash
+npm install
+```
+
+### Development
+
+```bash
+npm run dev
+```
+
+### Production build
+
+```bash
+npm run build
+npm run preview
+```
+
+### Lint
+
+```bash
+npm run lint
+```
+
+## Customization
+
+1. **Copy & contact** — Edit `src/data/content.js` (`profile`, `projects`, `experience`, `socialLinks`).
+2. **Portrait** — Replace `public/ankit-portrait.png` and keep `profile.photo` in sync.
+3. **Project screenshots** — Add images under `public/projects/` and set each project's `image` path in `content.js`.
+4. **Social URLs** — Update `socialLinks` in `content.js` with your Behance and GitHub profiles.
+
+## Design tokens
+
+- Background: `#0B0B0B`
+- Surface cards: `#111113` / `#161616`
+- Accent: `#FF5733`
+- Muted text: `#8A8A93`
+
+## License
+
+Private portfolio project. All rights reserved.
