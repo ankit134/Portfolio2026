@@ -10,6 +10,21 @@ npm run dev
 
 Open the URL shown in the terminal (typically `http://localhost:5173`).
 
+## GitHub Pages
+
+**Live URL (after deploy):** [https://ankit134.github.io/Portfolio2026/](https://ankit134.github.io/Portfolio2026/)
+
+Pushes to `main` run [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds the site and publishes `dist` to GitHub Pages.
+
+### One-time setup in GitHub
+
+1. Open [Portfolio2026 → Settings → Pages](https://github.com/ankit134/Portfolio2026/settings/pages).
+2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
+3. Push these changes to `main` on `github` (or merge your working branch into `main` and push).
+4. Check **Actions** for the “Deploy to GitHub Pages” workflow; when it succeeds, the site is live at the URL above.
+
+If you rename the repository, update `base` in `vite.config.js` to match the new repo name (`/<repo-name>/`).
+
 ## Features
 
 - **Hero** — Introduction, live Kathmandu clock (UTC+5:45), and scroll animations
