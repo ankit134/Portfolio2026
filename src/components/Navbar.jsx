@@ -9,7 +9,7 @@ export default function Navbar() {
           className="font-sans text-lg font-bold tracking-tight text-white transition-opacity hover:opacity-80"
           aria-label="Home"
         >
-          MK.
+        AS.
         </a>
         <ul className="flex items-center gap-6 md:gap-10">
           {navLinks.map((link) => (
