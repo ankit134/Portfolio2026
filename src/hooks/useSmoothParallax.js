@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { usePrefersReducedMotion } from './usePrefersReducedMotion'
 
-/**
- * Scroll-linked parallax offset in pixels.
- * Positive speed moves element down as you scroll; negative moves up (background depth).
- */
-export function useParallax(speed = 0.15) {
+const LERP = 0.08
+
+export function useSmoothParallax(speed = 0.15) {
   const ref = useRef(null)
+  const targetRef = useRef(0)
+  const currentRef = useRef(0)
   const [offset, setOffset] = useState(0)
   const reducedMotion = usePrefersReducedMotion()
 
@@ -18,7 +18,7 @@ export function useParallax(speed = 0.15) {
 
     let rafId = 0
 
-    const update = () => {
+    const measure = () => {
       const el = ref.current
       if (!el) return
 
@@ -28,15 +28,22 @@ export function useParallax(speed = 0.15) {
       const distanceFromCenter = elementCenter - viewportH / 2
       const normalized = distanceFromCenter / viewportH
 
-      setOffset(normalized * speed * 100)
+      targetRef.current = normalized * speed * 100
     }
 
-    const onScroll = () => {
-      cancelAnimationFrame(rafId)
-      rafId = requestAnimationFrame(update)
+    const tick = () => {
+      const diff = targetRef.current - currentRef.current
+      if (Math.abs(diff) > 0.05) {
+        currentRef.current += diff * LERP
+        setOffset(currentRef.current)
+      }
+      rafId = requestAnimationFrame(tick)
     }
 
-    update()
+    const onScroll = () => measure()
+
+    measure()
+    rafId = requestAnimationFrame(tick)
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('resize', onScroll)
 
@@ -49,7 +56,6 @@ export function useParallax(speed = 0.15) {
 
   return {
     ref,
-    offset,
     style: reducedMotion ? undefined : { transform: `translate3d(0, ${offset}px, 0)` },
   }
 }

@@ -42,9 +42,7 @@ export const projects = [
     description:
       'An event-journey mobile application focused on events and planning—helping users organize timelines and storage needs across different types of events with a clear, stage-by-stage flow.',
     tags: ['Mobile App', 'User Flows', 'UI Design', 'Prototyping'],
-    mockBg: 'from-rose-950 via-fuchsia-900 to-purple-950',
-    accent: '#f472b6',
-    layout: 'normal',
+    padColor: '#1a1220',
   },
   {
     id: 'tradieshome',
@@ -52,10 +50,8 @@ export const projects = [
     title: 'TradiesHome',
     description:
       'A dual-sided job portal connecting Tradies (professionals seeking work) with Homeowners (clients posting jobs). Designed flows and interfaces that make discovery, matching, and communication straightforward on mobile.',
-    tags: ['Mobile App', 'User Flows', 'Wireframes', 'UI/UX Design'],
-    mockBg: 'from-emerald-950 via-teal-900 to-emerald-800',
-    accent: '#10b981',
-    layout: 'reverse',
+    tags: ['Mobile App', 'User Flows', 'Wireframes', 'UI & UX design'],
+    padColor: '#0f1a14',
   },
   {
     id: 'leadhead',
@@ -64,9 +60,7 @@ export const projects = [
     description:
       'A business software system for keeping customer contacts up to date and tracking every customer account—structured dashboards and detail views to support sales and relationship management.',
     tags: ['Web App', 'Dashboard UI', 'Information Architecture', 'Prototyping'],
-    mockBg: 'from-sky-950 via-blue-900 to-indigo-900',
-    accent: '#38bdf8',
-    layout: 'normal',
+    padColor: '#0c1218',
   },
   {
     id: 'calilio',
@@ -74,10 +68,8 @@ export const projects = [
     title: 'Calilio',
     description:
       'Calilio is a cloud-based business phone system built on VoIP—streamlining business communications. Contributed to web experiences with emphasis on clarity, responsive layouts, and intuitive navigation.',
-    tags: ['Web App', 'UI/UX Design', 'Responsive Design', 'VoIP'],
-    mockBg: 'from-orange-950 via-amber-900 to-orange-900',
-    accent: '#FF5733',
-    layout: 'reverse',
+    tags: ['Web App', 'UI & UX design', 'Responsive Design', 'VoIP'],
+    padColor: '#1a140c',
   },
 ]
 

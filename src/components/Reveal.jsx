@@ -7,6 +7,7 @@ export default function Reveal({
   delay = 0,
   as: Tag = 'div',
   direction = 'up',
+  blur = false,
 }) {
   const ref = useRef(null)
   const [visible, setVisible] = useState(false)
@@ -28,7 +29,7 @@ export default function Reveal({
           observer.unobserve(el)
         }
       },
-      { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
+      { threshold: 0.08, rootMargin: '0px 0px -5% 0px' },
     )
 
     observer.observe(el)
@@ -47,7 +48,7 @@ export default function Reveal({
   return (
     <Tag
       ref={ref}
-      className={`reveal ${directionClass} ${visible ? 'reveal-visible' : ''} ${className}`}
+      className={`reveal ${directionClass} ${blur ? 'reveal-blur' : ''} ${visible ? 'reveal-visible' : ''} ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
