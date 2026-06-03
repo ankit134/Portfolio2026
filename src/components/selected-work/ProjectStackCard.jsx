@@ -34,7 +34,12 @@ const ProjectStackCard = forwardRef(function ProjectStackCard(
             </ul>
           </div>
           <div className="work-card__visual">
-            <ProjectVisual title={project.title} padColor={project.padColor} />
+            <ProjectVisual
+              title={project.title}
+              padColor={project.padColor}
+              image={project.image}
+              imageAlt={project.imageAlt}
+            />
           </div>
         </div>
       </article>

@@ -12,9 +12,9 @@ export default function About() {
           <Parallax speed={0.2}>
             <div className="image-reveal-mask relative aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl bg-[#161616] transition-shadow duration-500 hover:shadow-2xl hover:shadow-black/50 md:max-w-none">
               <img
-                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&h=1067&fit=crop&crop=faces"
+                src={profile.photo}
                 alt={`Portrait of ${profile.name}`}
-                className="image-hover h-full w-full object-cover grayscale contrast-125"
+                className="image-hover h-full w-full object-cover object-top contrast-110"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0B0B0B]/40 to-transparent transition-opacity duration-500 group-hover:opacity-70" />
             </div>

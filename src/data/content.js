@@ -1,6 +1,7 @@
 export const profile = {
   name: 'Ankit Shrestha',
   initials: 'AS.',
+  photo: '/ankit-portrait.png',
   role: 'UX/UI Designer',
   location: 'Kupondol, Lalitpur, Nepal',
   address: 'Jwagal, Kupondol, Bagmati Province',
@@ -43,6 +44,8 @@ export const projects = [
       'An event-journey mobile application focused on events and planning—helping users organize timelines and storage needs across different types of events with a clear, stage-by-stage flow.',
     tags: ['Mobile App', 'User Flows', 'UI Design', 'Prototyping'],
     padColor: '#1a1220',
+    image: '/projects/drop.svg',
+    imageAlt: 'Drop event journey mobile app UI',
   },
   {
     id: 'tradieshome',
@@ -52,6 +55,8 @@ export const projects = [
       'A dual-sided job portal connecting Tradies (professionals seeking work) with Homeowners (clients posting jobs). Designed flows and interfaces that make discovery, matching, and communication straightforward on mobile.',
     tags: ['Mobile App', 'User Flows', 'Wireframes', 'UI & UX design'],
     padColor: '#0f1a14',
+    image: '/projects/tradieshome.svg',
+    imageAlt: 'TradiesHome job portal mobile interface',
   },
   {
     id: 'leadhead',
@@ -61,6 +66,8 @@ export const projects = [
       'A business software system for keeping customer contacts up to date and tracking every customer account—structured dashboards and detail views to support sales and relationship management.',
     tags: ['Web App', 'Dashboard UI', 'Information Architecture', 'Prototyping'],
     padColor: '#0c1218',
+    image: '/projects/leadhead.svg',
+    imageAlt: 'Leadhead CRM sales pipeline dashboard',
   },
   {
     id: 'calilio',
@@ -70,6 +77,8 @@ export const projects = [
       'Calilio is a cloud-based business phone system built on VoIP—streamlining business communications. Contributed to web experiences with emphasis on clarity, responsive layouts, and intuitive navigation.',
     tags: ['Web App', 'UI & UX design', 'Responsive Design', 'VoIP'],
     padColor: '#1a140c',
+    image: '/projects/calilio.svg',
+    imageAlt: 'Calilio unified callbox web interface',
   },
 ]
 
