@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './index.css'
 import HomePage from './pages/HomePage.jsx'
+import ProjectsListPage from './pages/ProjectsListPage.jsx'
 import ProjectPage from './pages/ProjectPage.jsx'
 import AdminLogin from './pages/admin/AdminLogin.jsx'
 import AdminLayout from './pages/admin/AdminLayout.jsx'
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/projects" element={<ProjectsListPage />} />
           <Route path="/projects/:slug" element={<ProjectPage />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<ProtectedRoute />}>

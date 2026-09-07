@@ -119,6 +119,14 @@ vercel.json             # SPA rewrites for client routing
 
 Add your domain in Vercel project **Settings → Domains**. No code changes needed (`base` is `/`).
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md). After making changes, run:
+
+```bash
+npm run changelog -- "Brief description of your change"
+```
+
 ## License
 
 Private portfolio project. All rights reserved.

@@ -201,6 +201,16 @@ body {
   will-change: transform;
 }
 
+/* —— Case study hover CTA —— */
+.case-study-cta {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  justify-content: center;
+  width: 11.75rem;
+  height: 2.75rem;
+  white-space: nowrap;
+}
+
 /* —— Experience card shine —— */
 .card-shine {
   position: relative;

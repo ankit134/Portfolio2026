@@ -21,8 +21,10 @@ function ArrowIcon() {
 
 export default function SelectedWork() {
   const { projects } = usePortfolio()
-  const itemRefs = useMemo(() => projects.map(() => ({ current: null })), [projects])
-  const cardStyles = useWorkStack(itemRefs, projects.length)
+  const displayProjects = projects.length > 4 ? projects.slice(0, 4) : projects
+  const showViewAll = projects.length > 4
+  const itemRefs = useMemo(() => displayProjects.map(() => ({ current: null })), [displayProjects])
+  const cardStyles = useWorkStack(itemRefs, displayProjects.length)
 
   return (
     <section id="work" className="work-section">
@@ -33,7 +35,7 @@ export default function SelectedWork() {
         </header>
 
         <div className="work-stack">
-          {projects.map((project, index) => (
+          {displayProjects.map((project, index) => (
             <ProjectStackCard
               key={project.id}
               ref={(node) => {
@@ -46,12 +48,14 @@ export default function SelectedWork() {
           ))}
         </div>
 
-        <div className="work-cta-wrap">
-          <Link to={`/projects/${projects[0]?.id ?? 'drop'}`} className="work-cta">
-            View project details
-            <ArrowIcon />
-          </Link>
-        </div>
+        {showViewAll && (
+          <div className="work-cta-wrap">
+            <Link to="/projects" className="work-cta">
+              View all project
+              <ArrowIcon />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   )
