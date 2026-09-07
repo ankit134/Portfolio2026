@@ -1,10 +1,12 @@
 import Parallax from './Parallax'
-import { profile } from '../data/content'
+import { usePortfolio } from '../hooks/usePortfolio'
 import LiveClock from './LiveClock'
 import TextReveal from './TextReveal'
 import AnimatedDivider from './AnimatedDivider'
 
 export default function Hero() {
+  const { profile } = usePortfolio()
+
   return (
     <header className="relative overflow-hidden px-5 pb-16 pt-14 md:px-8 md:pb-24 md:pt-20">
       <Parallax speed={0.06} className="mx-auto flex max-w-3xl flex-col items-center text-center">

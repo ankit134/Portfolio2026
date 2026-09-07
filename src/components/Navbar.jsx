@@ -1,10 +1,13 @@
-import { navLinks, profile } from '../data/content'
+import { navLinks } from '../data/content'
+import { usePortfolio } from '../hooks/usePortfolio'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useNavScrolled } from '../hooks/useNavScrolled'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
+  const { profile } = usePortfolio()
   const scrolled = useNavScrolled()
-  const active = useActiveSection(navLinks.map((l) => l.href))
+  const active = useActiveSection(navLinks.map((l) => l.href.replace('/#', '#')))
 
   return (
     <nav
@@ -15,16 +18,16 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:h-[72px] md:px-8">
-        <a
-          href="#"
+        <Link
+          to="/"
           className="font-sans text-lg font-bold tracking-tight text-white transition-transform duration-300 hover:scale-105"
           aria-label="Home"
         >
           {profile.initials}
-        </a>
+        </Link>
         <ul className="flex items-center gap-6 md:gap-10">
           {navLinks.map((link) => {
-            const id = link.href.replace('#', '')
+            const id = link.href.replace('/#', '').replace('#', '')
             const isActive = active === id
             return (
               <li key={link.href}>

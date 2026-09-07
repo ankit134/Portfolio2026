@@ -1,83 +1,66 @@
 # Ankit Shrestha — Portfolio
 
-A single-page portfolio for **Ankit Shrestha**, UX/UI Designer based in Nepal. Built with React and Tailwind CSS, inspired by a minimal dark editorial layout with scroll-driven motion and a stacked Selected Work section.
+Hybrid portfolio for **Ankit Shrestha**, UX/UI Designer based in Nepal. React + Vite frontend, **Supabase** backend (database, auth, storage), deployed on **Vercel**.
 
-## Live preview
+## Live site
 
-```bash
-npm run dev
-```
-
-Open the URL shown in the terminal (typically `http://localhost:5173`).
-
-## GitHub Pages
-
-**Live URL (after deploy):** [https://ankit134.github.io/Portfolio2026/](https://ankit134.github.io/Portfolio2026/)
-
-Pushes to `main` run [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds the site and publishes `dist` to GitHub Pages.
-
-### One-time setup in GitHub
-
-1. Open [Portfolio2026 → Settings → Pages](https://github.com/ankit134/Portfolio2026/settings/pages).
-2. Under **Build and deployment**, set **Source** to **GitHub Actions** (not “Deploy from a branch”).
-3. Push these changes to `main` on `github` (or merge your working branch into `main` and push).
-4. Check **Actions** for the “Deploy to GitHub Pages” workflow; when it succeeds, the site is live at the URL above.
-
-If you rename the repository, update `base` in `vite.config.js` to match the new repo name (`/<repo-name>/`).
-
-## Features
-
-- **Hero** — Introduction, live Kathmandu clock (UTC+5:45), and scroll animations
-- **About** — Portrait, education, certification, skills marquee
-- **Selected Work** — Sticky card-stack scroll effect with project visuals (Drop, TradiesHome, Leadhead, Calilio)
-- **Experience** — Work history from CV in a bento-style grid
-- **Footer** — Contact, navigation, and social links
-- Respects `prefers-reduced-motion` for accessibility
+- **Production:** deploy via [Vercel](https://vercel.com) (connect `ankit134/Portfolio2026`)
+- **Admin:** `/admin/login` (after Supabase Auth user is created)
 
 ## Tech stack
 
 | Layer | Tools |
 |--------|--------|
-| Framework | React 19 |
-| Build | Vite 8 |
-| Styling | Tailwind CSS v4 |
-| Font | Plus Jakarta Sans (Google Fonts) |
+| Frontend | React 19, Vite 8, Tailwind CSS v4, React Router |
+| Data | TanStack React Query, Supabase JS client |
+| Backend | Supabase (Postgres, Auth, Storage, RLS) |
+| Hosting | Vercel (GitHub repo connected) |
+| Code | GitHub |
 
-## Project structure
+## Features
 
-```
-src/
-├── App.jsx                 # Page layout
-├── data/content.js         # Profile, projects, experience, nav (edit copy here)
-├── components/             # UI sections
-│   ├── selected-work/      # Stacked work cards + visuals
-│   └── ...
-├── hooks/                  # Parallax, scroll stack, nav state
-└── styles/
-    └── selected-work.css   # Selected Work stack layout
-public/
-├── ankit-portrait.png      # Hero & About photo
-└── projects/               # Project preview images (SVG)
-```
+- Dynamic portfolio content from Supabase (profile, projects, experience, skills)
+- Project case study pages at `/projects/:slug`
+- Contact form with messages stored in database
+- Protected admin dashboard at `/admin` for CRUD
+- Static fallback from `src/data/content.js` when Supabase env vars are missing
+- Scroll animations, sticky work stack, reduced-motion support
 
 ## Getting started
 
 ### Prerequisites
 
-- Node.js 18+ (20+ recommended)
+- Node.js 20+
 - npm
+- [Supabase](https://supabase.com) project (free tier)
+- [Vercel](https://vercel.com) account (free tier)
 
 ### Install
 
 ```bash
 npm install
+cp .env.example .env.local
 ```
+
+Add your Supabase URL and anon key to `.env.local`.
+
+### Database setup
+
+**Important:** Paste the **SQL file contents** into Supabase SQL Editor — not the file path. Full guide: [`supabase/README.md`](supabase/README.md).
+
+1. Create a project at [supabase.com](https://supabase.com)
+2. **SQL Editor** → New query → copy all of `supabase/schema.sql` → paste → Run
+3. New query → copy all of `supabase/seed.sql` → paste → Run
+4. **Authentication → Users** → create your admin user (email + password)
+5. **Settings → API** → copy Project URL and anon key into `.env.local`
 
 ### Development
 
 ```bash
 npm run dev
 ```
+
+Open `http://localhost:5173`
 
 ### Production build
 
@@ -86,25 +69,55 @@ npm run build
 npm run preview
 ```
 
-### Lint
+## Deploy on Vercel
 
-```bash
-npm run lint
+1. Sign in to [vercel.com](https://vercel.com) with GitHub
+2. **Add New Project** → import `Portfolio2026`
+3. Framework preset: **Vite**
+   - Build command: `npm run build`
+   - Output directory: `dist`
+4. Add environment variables (Settings → Environment Variables):
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+5. Deploy
+
+Every push to `main` triggers a new deploy. Content changes via `/admin` do **not** require redeploy.
+
+### Disable GitHub Pages
+
+In GitHub repo **Settings → Pages**, set source to **None** (Vercel replaces GitHub Pages).
+
+## Project structure
+
+```
+src/
+├── pages/              # Home, project detail, admin pages
+├── components/         # UI sections + admin ProtectedRoute
+├── context/            # PortfolioContext
+├── hooks/              # Data + scroll hooks
+├── lib/                # Supabase client, queries, mappers
+├── data/content.js     # Static fallback content
+supabase/
+├── schema.sql          # Tables, RLS, storage policies
+└── seed.sql            # Initial data
+vercel.json             # SPA rewrites for client routing
 ```
 
-## Customization
+## Admin
 
-1. **Copy & contact** — Edit `src/data/content.js` (`profile`, `projects`, `experience`, `socialLinks`).
-2. **Portrait** — Replace `public/ankit-portrait.png` and keep `profile.photo` in sync.
-3. **Project screenshots** — Add images under `public/projects/` and set each project's `image` path in `content.js`.
-4. **Social URLs** — Update `socialLinks` in `content.js` with your Behance and GitHub profiles.
+| Route | Purpose |
+|-------|---------|
+| `/admin/login` | Sign in |
+| `/admin` | Dashboard |
+| `/admin/profile` | Edit bio and contact |
+| `/admin/projects` | CRUD projects + case studies |
+| `/admin/experience` | CRUD work history |
+| `/admin/skills` | Manage skill tags |
+| `/admin/messages` | Read contact submissions |
 
-## Design tokens
+## Custom domain (optional)
 
-- Background: `#0B0B0B`
-- Surface cards: `#111113` / `#161616`
-- Accent: `#FF5733`
-- Muted text: `#8A8A93`
+Add your domain in Vercel project **Settings → Domains**. No code changes needed (`base` is `/`).
 
 ## License
 

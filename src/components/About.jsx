@@ -1,10 +1,12 @@
-import { profile } from '../data/content'
+import { usePortfolio } from '../hooks/usePortfolio'
 import Parallax from './Parallax'
 import Reveal from './Reveal'
 import SkillsMarquee from './SkillsMarquee'
 import TextReveal from './TextReveal'
 
 export default function About() {
+  const { profile, skillTags } = usePortfolio()
+
   return (
     <section id="about" className="px-5 py-24 md:px-8 md:py-32">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-12 md:grid-cols-2 md:gap-16 lg:gap-20">
@@ -49,7 +51,7 @@ export default function About() {
                 Nepali (Native)
               </p>
             </div>
-            <SkillsMarquee />
+            <SkillsMarquee skillTags={skillTags} />
           </div>
         </Reveal>
       </div>

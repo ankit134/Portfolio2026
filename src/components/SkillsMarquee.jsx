@@ -1,7 +1,7 @@
-import { skillTags } from '../data/content'
+import { skillTags as defaultSkillTags } from '../data/content'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
-export default function SkillsMarquee() {
+export default function SkillsMarquee({ skillTags = defaultSkillTags }) {
   const reducedMotion = usePrefersReducedMotion()
   const items = [...skillTags, ...skillTags]
 

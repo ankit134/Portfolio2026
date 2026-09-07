@@ -1,4 +1,6 @@
-import { footerNav, footerSocialIcons, profile, socialLinks } from '../data/content'
+import { Link } from 'react-router-dom'
+import { footerNav } from '../data/content'
+import { usePortfolio } from '../hooks/usePortfolio'
 import Reveal from './Reveal'
 
 function SocialIcon({ type }) {
@@ -18,6 +20,8 @@ function SocialIcon({ type }) {
 }
 
 export default function Footer() {
+  const { profile, socialLinks, footerSocialIcons } = usePortfolio()
+
   return (
     <footer className="border-t border-white/[0.06] px-5 pb-8 pt-20 md:px-8 md:pt-28">
       <div className="mx-auto max-w-6xl">
@@ -67,12 +71,12 @@ export default function Footer() {
               <ul className="mt-4 space-y-3">
                 {footerNav.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
+                    <Link
+                      to={link.href}
                       className="nav-link text-sm text-[#8A8A93] hover:text-white"
                     >
                       {link.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

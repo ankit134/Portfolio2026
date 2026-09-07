@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+import { Link } from 'react-router-dom'
 import { getCardPin } from '../../hooks/useWorkStack'
 import ProjectVisual from './ProjectVisual'
 
@@ -22,7 +23,11 @@ const ProjectStackCard = forwardRef(function ProjectStackCard(
           <div className="work-card__content">
             <div className="work-card__meta">
               <p className="work-card__category">{project.category}</p>
-              <h3 className="work-card__title">{project.title}</h3>
+              <h3 className="work-card__title">
+                <Link to={`/projects/${project.id}`} className="hover:text-[#FF5733] transition-colors">
+                  {project.title}
+                </Link>
+              </h3>
             </div>
             <p className="work-card__description">{project.description}</p>
             <ul className="work-card__tags">

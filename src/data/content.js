@@ -21,9 +21,10 @@ export const profile = {
 }
 
 export const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Selected Work', href: '#work' },
-  { label: 'Experience', href: '#experience' },
+  { label: 'About', href: '/#about' },
+  { label: 'Selected Work', href: '/#work' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export const skillTags = [
@@ -151,10 +152,11 @@ export const experience = [
 ]
 
 export const footerNav = [
-  { label: 'Home', href: '#' },
-  { label: 'About', href: '#about' },
-  { label: 'Work', href: '#work' },
-  { label: 'Experience', href: '#experience' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/#about' },
+  { label: 'Work', href: '/#work' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export const socialLinks = [

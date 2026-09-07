@@ -1,0 +1,159 @@
+---
+description: Design system for Figma MCP — tokens, components, Tailwind + BEM, assets, motion
+alwaysApply: true
+---
+
+# Figma Design System
+
+Dark editorial portfolio. React 19 + Vite 8 + Tailwind CSS v4. No token pipeline, no Storybook, no component library package. When implementing or generating Figma UI, map to the patterns below — do not invent a parallel system.
+
+## Token definitions
+
+Tokens are **not centralized**. The only Tailwind v4 `@theme` token is the font in `src/index.css`:
+
+```css
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+}
+```
+
+Font is loaded in `index.html` (Plus Jakarta Sans 400–800). No Style Dictionary or CSS-modules theme. Colors, type, and spacing live as Tailwind arbitrary values plus BEM variables in Selected Work.
+
+Do **not** invent new hex values. Reuse these. Prefer existing Tailwind class strings over new CSS variables unless a token is being added to `@theme`.
+
+### Color
+
+| Role | Value | Usage |
+|------|--------|--------|
+| Canvas | `#0B0B0B` | Page background, nav |
+| Surface raised | `#111113` | Work frame, admin cards, project media wrap |
+| Surface card | `#161616` | Experience cards, form fields |
+| Work inset | `#070708` | Project visual frame |
+| Work border | `#1f2328` | `.work-frame` sides |
+| Work border soft | `#202124` | Card/header dividers |
+| Tag fill | `#1c2024` | Work tags |
+| Accent | `#FF5733` | Labels, primary buttons, links (`#ff5733`, `rgb(255 87 51)`) |
+| Accent hover | `#ff8a6b` | Nav underline, scroll progress |
+| Muted | `#8A8A93` | Body, nav links, captions |
+| Soft text | `#c4c4cc` / `#a8a8b0` / `#b8b8c0` | Tags, company, hover body |
+| Hairlines | `white/5`, `white/10`, `white/[0.06]` | Borders, pills |
+
+Dark-only. No light theme.
+
+### Typography
+
+- Display: `text-4xl md:text-5xl font-extrabold tracking-tight text-white`
+- Hero: `text-[clamp(2rem,6vw,3.75rem)] font-extrabold leading-[1.08] tracking-tight`
+- Body: `text-base leading-relaxed text-[#8A8A93]` (`md:text-lg` on hero/section intros)
+- Eyebrow: `text-xs font-semibold uppercase tracking-[0.2em] text-[#FF5733]`
+- Nav / footer links: `text-sm font-medium text-[#8A8A93] hover:text-white`
+
+### Spacing, radius, layout
+
+- Page gutters: `px-5 md:px-8`
+- Section padding: `py-24 md:py-32`
+- Content width: `max-w-6xl` (home), `max-w-4xl` (project), `max-w-2xl` (contact)
+- Nav: `h-16 md:h-[72px]`, sticky, `backdrop-blur-xl`
+- Radius: `rounded-lg` inputs/buttons, `rounded-xl` cards, `rounded-2xl` media, `rounded-full` pills/avatar/social
+
+### Motion
+
+Easing: `cubic-bezier(0.22, 1, 0.36, 1)`. Always honor `prefers-reduced-motion` via `usePrefersReducedMotion`. Do not ship animation without a reduced-motion kill-switch in CSS or the hook.
+
+### Breakpoints
+
+Tailwind defaults: `sm` 640, `md` 768, `lg` 1024. Selected Work CSS also uses **900px** for the card grid. Do not add other custom breakpoints.
+
+## Component library
+
+Location: `src/components/`. Functional default-export JSX. Map Figma frames to these first; do not generate a parallel button/card/heading system.
+
+**Page sections:** Navbar, Hero, About, SelectedWork, Experience, Contact, Footer.
+
+**Primitives:**
+
+- `SectionHeading` — label / title / subtitle
+- `Reveal` — intersection fade (`up` | `left` | `right` | `scale`, optional `blur`)
+- `TextReveal` — word-stagger
+- `Parallax`, `AnimatedDivider`, `SkillsMarquee`
+- `MagneticButton`, `TiltCard` — unused but available; reuse rather than duplicate hover physics
+- Selected Work: BEM in `src/styles/selected-work.css` + `ProjectStackCard` / `ProjectVisual`
+
+## Frameworks and libraries
+
+- React 19, React Router 7, TanStack Query, Supabase JS
+- Tailwind CSS **v4** via `@tailwindcss/vite` — **no** `tailwind.config.js`
+- Vite 8 + `@vitejs/plugin-react` + React Compiler babel preset
+- JSX (not TypeScript) for app code
+- No shadcn, no CSS-in-JS, no icon pack
+
+## Asset management
+
+- Static files in `public/`: `favicon.svg`, `projects/*.svg`
+- Resolve with `assetUrl()` (`src/lib/assetUrl.js`) or `resolveImageUrl()` (`src/lib/imageUrl.js`) — do not hardcode `/projects/...`
+- CMS: `storage/...` → Supabase public URL; `http(s)` passthrough
+- Uploads: `uploadImage()` → `storage/{folder}/{uuid}.{ext}`, cacheControl `3600`
+- Project images: `loading="lazy"` + `decoding="async"`; Hero portrait uses fixed `width`/`height`
+- No image CDN beyond Supabase Storage + Google Fonts
+
+## Icon system
+
+No icon library. Inline SVG, `currentColor`, `aria-hidden="true"` unless the control needs a label.
+
+- Footer: local `SocialIcon` in `Footer.jsx` (`github` vs default briefcase)
+- Work CTA: local `ArrowIcon` in `SelectedWork.jsx`
+- `public/icons.svg` is leftover Vite starter sprites — **do not use** for product UI
+
+New icons: inline SVG in the consuming component, 16×16 or 24×24, stroke or fill `currentColor`.
+
+## Styling approach
+
+Hybrid:
+
+1. **Default:** Tailwind utilities in JSX. Dark-only.
+2. **Motion / effects:** global classes in `src/index.css` (`reveal-*`, `hero-enter`, `btn-glow`, `hover-lift`, `nav-link`, `card-shine`, `marquee-track`, …)
+3. **Selected Work only:** BEM + CSS variables in `src/styles/selected-work.css` — do not convert that section to Tailwind unless explicitly asked
+
+Responsive: mobile-first Tailwind prefixes. Selected Work stack is sticky on `md+`, document flow on mobile (`max-width: 767px`).
+
+### Figma → code mapping
+
+```jsx
+<section className="px-5 py-24 md:px-8 md:py-32">
+  <div className="mx-auto max-w-6xl">{/* … */}</div>
+</section>
+
+<p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#FF5733]">Label</p>
+<h2 className="mt-4 font-sans text-4xl font-extrabold tracking-tight text-white md:text-5xl">Title</h2>
+
+<article className="card-shine hover-lift rounded-xl border border-transparent bg-[#161616] p-6 hover:border-white/10">
+
+<button className="rounded-lg bg-[#FF5733] px-6 py-3 text-sm font-semibold text-white hover:opacity-90">
+```
+
+Work cards use BEM (`work-card`, `work-card__title`, `work-visual`, …), not Tailwind equivalents.
+
+## Project structure
+
+```
+src/
+  components/          # public UI + selected-work/ + admin/
+  pages/               # HomePage, ProjectPage, admin/*
+  hooks/               # data + motion
+  lib/                 # supabase, queries, mappers, imageUrl
+  data/content.js      # static fallback
+  styles/              # selected-work.css only
+  index.css            # Tailwind + motion utilities
+```
+
+- Public site: `HomePage.jsx` wraps sections in `PortfolioProvider`
+- Admin: same tokens, simpler forms — keep the visual language, skip scroll theater
+- Data: Supabase via `usePortfolioData`; never bake copy into new components
+
+## Figma MCP
+
+- Before `get_design_context` / `use_figma`, follow the Figma design-to-code / generate-design skills
+- Map Figma color/text styles to the tables above; do not introduce a second palette
+- Prefer existing components; BEM class names for work cards
+- Code Connect (if added later): `.figma.ts` only, React + JavaScript
+- Respect reduced-motion; every animation needs a CSS or hook kill-switch

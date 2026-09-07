@@ -1,6 +1,7 @@
-import { useMemo, useRef } from 'react'
+import { useMemo } from 'react'
+import { Link } from 'react-router-dom'
 import '../styles/selected-work.css'
-import { projects } from '../data/content'
+import { usePortfolio } from '../hooks/usePortfolio'
 import { useWorkStack } from '../hooks/useWorkStack'
 import ProjectStackCard from './selected-work/ProjectStackCard'
 
@@ -19,7 +20,8 @@ function ArrowIcon() {
 }
 
 export default function SelectedWork() {
-  const itemRefs = useMemo(() => projects.map(() => ({ current: null })), [])
+  const { projects } = usePortfolio()
+  const itemRefs = useMemo(() => projects.map(() => ({ current: null })), [projects])
   const cardStyles = useWorkStack(itemRefs, projects.length)
 
   return (
@@ -45,10 +47,10 @@ export default function SelectedWork() {
         </div>
 
         <div className="work-cta-wrap">
-          <a href="#" className="work-cta">
-            View all projects
+          <Link to={`/projects/${projects[0]?.id ?? 'drop'}`} className="work-cta">
+            View project details
             <ArrowIcon />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { experience } from '../data/content'
+import { usePortfolio } from '../hooks/usePortfolio'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
 
@@ -22,6 +22,8 @@ function CompanyMark({ company }) {
 }
 
 export default function Experience() {
+  const { experience } = usePortfolio()
+
   return (
     <section id="experience" className="px-5 py-24 md:px-8 md:py-32">
       <div className="mx-auto max-w-6xl">
