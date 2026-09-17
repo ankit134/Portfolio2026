@@ -4,7 +4,7 @@ Hybrid portfolio for **Ankit Shrestha**, UX/UI Designer based in Nepal. React + 
 
 ## Live site
 
-- **Production:** deploy via [Vercel](https://vercel.com) (connect `ankit134/Portfolio2026`)
+- **Production:** [GitHub Pages](https://ankit134.github.io/Portfolio2026/) — auto-deploy on push to `main` (see below)
 - **Admin:** `/admin/login` (after Supabase Auth user is created)
 
 ## Tech stack
@@ -14,7 +14,7 @@ Hybrid portfolio for **Ankit Shrestha**, UX/UI Designer based in Nepal. React + 
 | Frontend | React 19, Vite 8, Tailwind CSS v4, React Router |
 | Data | TanStack React Query, Supabase JS client |
 | Backend | Supabase (Postgres, Auth, Storage, RLS) |
-| Hosting | Vercel (GitHub repo connected) |
+| Hosting | GitHub Pages (GitHub Actions) |
 | Code | GitHub |
 
 ## Features
@@ -69,23 +69,22 @@ npm run build
 npm run preview
 ```
 
-## Deploy on Vercel
+## Deploy on GitHub Pages
 
-1. Sign in to [vercel.com](https://vercel.com) with GitHub
-2. **Add New Project** → import `Portfolio2026`
-3. Framework preset: **Vite**
-   - Build command: `npm run build`
-   - Output directory: `dist`
-4. Add environment variables (Settings → Environment Variables):
+Pushing to `main` only updates the repo until Pages is wired up. One-time setup:
+
+1. GitHub repo **Settings → Secrets and variables → Actions** → add:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
-5. Deploy
+2. **Settings → Pages** → **Build and deployment** → Source: **GitHub Actions**
+3. Push to `main` (or run the **Deploy to GitHub Pages** workflow manually under **Actions**)
 
-Every push to `main` triggers a new deploy. Content changes via `/admin` do **not** require redeploy.
+The workflow (`.github/workflows/deploy.yml`) runs `npm run build`, uploads `dist`, and publishes to  
+`https://ankit134.github.io/Portfolio2026/`.
 
-### Disable GitHub Pages
+Content changes via `/admin` do **not** require redeploy — only code changes do.
 
-In GitHub repo **Settings → Pages**, set source to **None** (Vercel replaces GitHub Pages).
+Optional: [Vercel](https://vercel.com) with `base: '/'` in `vite.config.js` and `vercel.json` if you prefer a custom domain without the `/Portfolio2026` path.
 
 ## Project structure
 
@@ -100,7 +99,8 @@ src/
 supabase/
 ├── schema.sql          # Tables, RLS, storage policies
 └── seed.sql            # Initial data
-vercel.json             # SPA rewrites for client routing
+.github/workflows/      # GitHub Pages deploy on push to main
+vercel.json             # Optional Vercel SPA rewrites
 ```
 
 ## Admin
