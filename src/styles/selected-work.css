@@ -164,7 +164,7 @@
   opacity: 1;
 }
 
-@media (prefers-reduced-motion: reduce) {
+@media (min-width: 1024px) and (prefers-reduced-motion: reduce) {
   .work-card__cta {
     left: 50% !important;
     top: 50% !important;

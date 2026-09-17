@@ -10,7 +10,8 @@ function applyCtaPosition(cta, x, y) {
 function isPointerContextValid(container, cta, clientX, clientY) {
   if (!container) return false
 
-  const section = container.closest('.work-section')
+  const section =
+    container.closest('.work-section') ?? container.closest('.recent-works')
   if (section) {
     const sectionRect = section.getBoundingClientRect()
     if (sectionRect.bottom <= 0 || sectionRect.top >= window.innerHeight) {
@@ -55,8 +56,11 @@ function paintFollow(refs, instant, reducedMotion) {
   }
 }
 
+const DEFAULT_VISIBLE_CLASS = 'work-card__cta--visible'
+
 /** Positions a floating CTA at the pointer inside `containerRef`. */
-export function usePointerFollow(enabled = true) {
+export function usePointerFollow(enabled = true, options = {}) {
+  const visibleClass = options.visibleClass ?? DEFAULT_VISIBLE_CLASS
   const containerRef = useRef(null)
   const ctaRef = useRef(null)
   const clientRef = useRef({ x: 0, y: 0, active: false })
@@ -72,12 +76,12 @@ export function usePointerFollow(enabled = true) {
   )
 
   const showCta = useCallback(() => {
-    ctaRef.current?.classList.add('work-card__cta--visible')
-  }, [])
+    ctaRef.current?.classList.add(visibleClass)
+  }, [visibleClass])
 
   const hideCta = useCallback(() => {
-    ctaRef.current?.classList.remove('work-card__cta--visible')
-  }, [])
+    ctaRef.current?.classList.remove(visibleClass)
+  }, [visibleClass])
 
   const deactivate = useCallback(() => {
     clientRef.current.active = false
@@ -164,12 +168,12 @@ export function usePointerFollow(enabled = true) {
         deactivate()
         return
       }
-      if (!ctaRef.current?.classList.contains('work-card__cta--visible')) {
+      if (!ctaRef.current?.classList.contains(visibleClass)) {
         showCta()
       }
       schedulePaint(false)
     },
-    [deactivate, followPointer, schedulePaint, showCta],
+    [deactivate, followPointer, schedulePaint, showCta, visibleClass],
   )
 
   const onPointerLeave = useCallback(() => {

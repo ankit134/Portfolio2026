@@ -2,6 +2,7 @@ import { forwardRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { hasCaseStudy } from '../../lib/caseStudy'
 import { getCardPin } from '../../hooks/useWorkStack'
+import { useMinLg } from '../../hooks/useMinLg'
 import { usePointerFollow } from '../../hooks/usePointerFollow'
 import ProjectVisual from './ProjectVisual'
 import CaseStudyCta from './CaseStudyCta'
@@ -11,8 +12,10 @@ const ProjectStackCard = forwardRef(function ProjectStackCard(
   ref,
 ) {
   const navigate = useNavigate()
+  const isDesktopHover = useMinLg()
   const pinTop = getCardPin(index)
   const caseStudyReady = hasCaseStudy(project.caseStudy)
+  const pointerFollowEnabled = caseStudyReady && isDesktopHover
   const {
     containerRef,
     ctaRef,
@@ -20,7 +23,7 @@ const ProjectStackCard = forwardRef(function ProjectStackCard(
     onPointerEnter,
     onPointerMove,
     onPointerLeave,
-  } = usePointerFollow(caseStudyReady)
+  } = usePointerFollow(pointerFollowEnabled)
 
   function handleCardClick() {
     if (caseStudyReady) {
@@ -47,9 +50,9 @@ const ProjectStackCard = forwardRef(function ProjectStackCard(
         }}
         onClick={handleCardClick}
         onKeyDown={handleKeyDown}
-        onMouseEnter={onPointerEnter}
-        onMouseMove={onPointerMove}
-        onMouseLeave={onPointerLeave}
+        onMouseEnter={pointerFollowEnabled ? onPointerEnter : undefined}
+        onMouseMove={pointerFollowEnabled ? onPointerMove : undefined}
+        onMouseLeave={pointerFollowEnabled ? onPointerLeave : undefined}
         role={caseStudyReady ? 'link' : undefined}
         tabIndex={caseStudyReady ? 0 : undefined}
         aria-label={caseStudyReady ? `View case study for ${project.title}` : undefined}
@@ -79,12 +82,14 @@ const ProjectStackCard = forwardRef(function ProjectStackCard(
           </div>
         </div>
 
-        <CaseStudyCta
-          ref={ctaRef}
-          projectSlug={project.id}
-          enabled={caseStudyReady}
-          className={`work-card__cta${followPointer ? ' work-card__cta--follow' : ''}`}
-        />
+        {isDesktopHover ? (
+          <CaseStudyCta
+            ref={ctaRef}
+            projectSlug={project.id}
+            enabled={caseStudyReady}
+            className={`work-card__cta${followPointer ? ' work-card__cta--follow' : ''}`}
+          />
+        ) : null}
       </article>
     </div>
   )

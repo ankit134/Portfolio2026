@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import CaseStudyEditor from '../../components/admin/CaseStudyEditor'
+import ImageUploadField from '../../components/admin/ImageUploadField'
 import { normalizeCaseStudy } from '../../lib/caseStudy'
 import { defaultMetaRows, emptyCaseStudy, emptySectionBlock } from '../../lib/caseStudyDefaults'
 import { deleteProject, fetchProjectsRaw, upsertProject } from '../../lib/queries'
 import { projectToRow } from '../../lib/mappers'
-import { uploadImage } from '../../lib/imageUrl'
 
 const inputClass =
   'w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 text-sm outline-none placeholder:text-[#6b6b75] focus:border-[#FF5733]/50'
@@ -43,12 +43,6 @@ const PROJECT_FIELDS = [
     label: 'Category',
     placeholder: 'e.g. VoIP, Mobile App, SaaS',
     hint: 'Small orange label above the project name (e.g. VoIP).',
-  },
-  {
-    key: 'image_path',
-    label: 'Hero image file path',
-    placeholder: 'Filled automatically after upload, or e.g. projects/calilio.svg',
-    hint: 'Main image at the top of the case study. Upload below or paste a storage path.',
   },
   {
     key: 'image_alt',
@@ -143,18 +137,6 @@ export default function AdminProjects() {
     await queryClient.invalidateQueries({ queryKey: ['admin-projects'] })
   }
 
-  async function handleImageUpload(e) {
-    const file = e.target.files?.[0]
-    if (!file) return
-    try {
-      const path = await uploadImage(file, 'projects')
-      setForm((f) => ({ ...f, image_path: path }))
-      setMessage('Hero image uploaded — path filled in automatically.')
-    } catch (err) {
-      setMessage(err.message)
-    }
-  }
-
   if (isLoading) return <p className="text-[#8A8A93]">Loading…</p>
 
   return (
@@ -200,12 +182,14 @@ export default function AdminProjects() {
           </AdminField>
         ))}
 
-        <AdminField
-          label="Upload hero image"
-          hint="Choose a PNG or JPG — the file path field above updates automatically after upload."
-        >
-          <input type="file" accept="image/*" onChange={handleImageUpload} className="text-sm text-[#8A8A93]" />
-        </AdminField>
+        <ImageUploadField
+          label="Hero image"
+          hint="Main image at the top of the case study page and on work cards. PNG, JPG, or WebP."
+          value={form.image_path ?? ''}
+          onChange={(path) => setForm((f) => ({ ...f, image_path: path }))}
+          onStatus={setMessage}
+          folder="projects"
+        />
 
         <AdminField
           label="Short description"
@@ -245,6 +229,7 @@ export default function AdminProjects() {
         <CaseStudyEditor
           value={form.caseStudy}
           onChange={(caseStudy) => setForm((f) => ({ ...f, caseStudy }))}
+          onStatus={setMessage}
         />
 
         <div className="flex gap-3 pt-4">

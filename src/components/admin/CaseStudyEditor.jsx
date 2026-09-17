@@ -1,4 +1,4 @@
-import { uploadImage } from '../../lib/imageUrl'
+import ImageUploadField from './ImageUploadField'
 import {
   SECTION_ITEM_TYPES,
   emptyCalloutItem,
@@ -113,15 +113,7 @@ function SectionItemEditor({ item, onChange, onRemove }) {
   )
 }
 
-function MediaBlockEditor({ block, onChange, onRemove }) {
-  async function handleUpload(index, file) {
-    if (!file) return
-    const path = await uploadImage(file, 'projects')
-    const images = [...(block.images ?? [])]
-    images[index] = { ...images[index], path }
-    onChange({ ...block, images })
-  }
-
+function MediaBlockEditor({ block, onChange, onRemove, onStatus }) {
   const images = block.images?.length ? block.images : [emptyMediaImage()]
 
   return (
@@ -135,26 +127,17 @@ function MediaBlockEditor({ block, onChange, onRemove }) {
 
       {images.map((image, index) => (
         <div key={`media-${index}`} className="space-y-3 rounded-lg border border-white/5 p-4">
-          <FieldLabel>Image file path</FieldLabel>
-          <input
+          <ImageUploadField
+            label={`Image ${index + 1}`}
             value={image.path ?? ''}
-            onChange={(e) => {
+            onChange={(path) => {
               const next = [...images]
-              next[index] = { ...next[index], path: e.target.value }
+              next[index] = { ...next[index], path }
               onChange({ ...block, images: next })
             }}
-            placeholder="Auto-filled after upload, or e.g. storage/projects/photo.png"
-            className={inputClass}
+            onStatus={onStatus}
+            folder="projects"
           />
-          <div>
-            <FieldLabel>Upload from computer</FieldLabel>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleUpload(index, e.target.files?.[0])}
-              className="text-sm text-[#8A8A93]"
-            />
-          </div>
           <FieldLabel>Image description (accessibility)</FieldLabel>
           <input
             value={image.alt ?? ''}
@@ -429,7 +412,7 @@ function CreditsEditor({ credits, onChange }) {
   )
 }
 
-export default function CaseStudyEditor({ value, onChange }) {
+export default function CaseStudyEditor({ value, onChange, onStatus }) {
   const caseStudy = value ?? { tagline: '', meta: [], blocks: [], credits: { heading: 'Credits', columns: [] } }
   const meta = caseStudy.meta?.length ? caseStudy.meta : []
   const blocks = caseStudy.blocks ?? []
@@ -523,6 +506,7 @@ export default function CaseStudyEditor({ value, onChange }) {
               block={block}
               onChange={(next) => updateBlock(index, next)}
               onRemove={() => updateCaseStudy({ blocks: blocks.filter((_, i) => i !== index) })}
+              onStatus={onStatus}
             />
           ) : (
             <SectionBlockEditor
