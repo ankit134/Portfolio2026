@@ -1,0 +1,127 @@
+{
+  "tagline": "Plan every event stage with clarity and confidence.",
+  "meta": [
+    { "label": "Deliverables", "value": "Mobile App, User Flows, UI Design, Prototyping" },
+    { "label": "Teams", "value": "1 Designer + 3 Developers" },
+    { "label": "Timeline", "value": "12 weeks" }
+  ],
+  "blocks": [
+    {
+      "type": "section",
+      "heading": "Context",
+      "items": [
+        {
+          "type": "paragraph",
+          "text": "Drop is an event-journey mobile application focused on events and planning—helping users organize timelines and storage needs across different types of events with a clear, stage-by-stage flow."
+        },
+        {
+          "type": "paragraph",
+          "text": "The product needed to guide users through complex planning tasks without overwhelming them, while keeping progress visible at every step."
+        }
+      ]
+    },
+    {
+      "type": "media",
+      "images": [{ "path": "projects/drop.svg", "alt": "Drop event journey mobile app UI" }]
+    },
+    {
+      "type": "section",
+      "heading": "Scope",
+      "items": [
+        {
+          "type": "list",
+          "items": [
+            "End-to-end event planning flows with stage-by-stage progression.",
+            "Visual progress indicators and contextual storage recommendations.",
+            "Mobile-first UI patterns for quick scanning and task completion.",
+            "Prototype-ready screens for stakeholder review and developer handoff."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "My Roles",
+      "items": [
+        { "type": "subheading", "text": "UX/UI Designer" },
+        {
+          "type": "list",
+          "items": [
+            "Mapped user journeys for multiple event types and planning stages.",
+            "Designed wireframes and high-fidelity mobile screens in Figma.",
+            "Collaborated with developers to validate flow feasibility and edge cases."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "Tools",
+      "items": [{ "type": "paragraph", "text": "Figma, FigJam, Notion" }]
+    },
+    {
+      "type": "section",
+      "heading": "Challenges",
+      "items": [
+        {
+          "type": "paragraph",
+          "text": "Event planning apps often fail when users lose context between stages:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Users needed a clear way to plan events across multiple stages without losing context.",
+            "Storage and checklist tasks had to feel connected to the overall event timeline.",
+            "Onboarding had to explain the stage model quickly on small screens."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "Goals/Features",
+      "items": [
+        {
+          "type": "list",
+          "items": [
+            "Stage-by-stage event journey with visible progress.",
+            "Contextual storage recommendations tied to event type.",
+            "Clean mobile UI with scannable cards and minimal friction.",
+            "Reusable components for future event categories."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "Solution",
+      "items": [
+        {
+          "type": "paragraph",
+          "text": "Designed a linear flow with visual progress indicators and contextual storage recommendations so users always know where they are and what comes next."
+        },
+        {
+          "type": "callout",
+          "text": "Impact: Improved task completion clarity across multi-stage event planning flows."
+        }
+      ]
+    }
+  ],
+  "credits": {
+    "heading": "Credits",
+    "columns": [
+      {
+        "label": "Services",
+        "items": ["User Research", "User Interface Design", "User Experience Design"]
+      },
+      { "label": "Tools", "items": ["Figma", "FigJam"] },
+      {
+        "label": "Teams",
+        "groups": [
+          { "label": "Product Designer", "members": ["Ankit Shrestha"] },
+          { "label": "Developers", "members": ["Mobile team"] }
+        ]
+      }
+    ]
+  }
+}

@@ -1,4 +1,9 @@
 import { assetUrl } from '../lib/assetUrl'
+import { resolveCaseStudy } from '../lib/caseStudy'
+import calilioCaseStudy from './caseStudies/calilio.json'
+import dropCaseStudy from './caseStudies/drop.json'
+import leadheadCaseStudy from './caseStudies/leadhead.json'
+import tradieshomeCaseStudy from './caseStudies/tradieshome.json'
 
 export const profile = {
   name: 'Ankit Shrestha',
@@ -49,6 +54,7 @@ export const projects = [
     padColor: '#1a1220',
     image: assetUrl('projects/drop.svg'),
     imageAlt: 'Drop event journey mobile app UI',
+    caseStudy: resolveCaseStudy(dropCaseStudy),
   },
   {
     id: 'tradieshome',
@@ -60,6 +66,7 @@ export const projects = [
     padColor: '#0f1a14',
     image: assetUrl('projects/tradieshome.svg'),
     imageAlt: 'TradiesHome job portal mobile interface',
+    caseStudy: resolveCaseStudy(tradieshomeCaseStudy),
   },
   {
     id: 'leadhead',
@@ -71,17 +78,18 @@ export const projects = [
     padColor: '#0c1218',
     image: assetUrl('projects/leadhead.svg'),
     imageAlt: 'Leadhead CRM sales pipeline dashboard',
+    caseStudy: resolveCaseStudy(leadheadCaseStudy),
   },
   {
     id: 'calilio',
     category: 'VoIP',
     title: 'Calilio',
-    description:
-      'Calilio is a cloud-based business phone system built on VoIP—streamlining business communications. Contributed to web experiences with emphasis on clarity, responsive layouts, and intuitive navigation.',
+    description: 'Experience the future of Business Phone System with Calilio.',
     tags: ['Web App', 'UI & UX design', 'Responsive Design', 'VoIP'],
     padColor: '#1a140c',
     image: assetUrl('projects/calilio.svg'),
     imageAlt: 'Calilio unified callbox web interface',
+    caseStudy: resolveCaseStudy(calilioCaseStudy),
   },
 ]
 

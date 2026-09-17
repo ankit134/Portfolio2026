@@ -1,8 +1,77 @@
 import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
+import CaseStudyEditor from '../../components/admin/CaseStudyEditor'
+import { normalizeCaseStudy } from '../../lib/caseStudy'
+import { defaultMetaRows, emptyCaseStudy, emptySectionBlock } from '../../lib/caseStudyDefaults'
 import { deleteProject, fetchProjectsRaw, upsertProject } from '../../lib/queries'
 import { projectToRow } from '../../lib/mappers'
 import { uploadImage } from '../../lib/imageUrl'
+
+const inputClass =
+  'w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 text-sm outline-none placeholder:text-[#6b6b75] focus:border-[#FF5733]/50'
+const textareaClass = `${inputClass} min-h-[96px] resize-y`
+const labelClass = 'mb-1.5 block text-sm font-medium text-[#c4c4cc]'
+const hintClass = 'mt-1.5 text-xs leading-relaxed text-[#8A8A93]'
+
+function AdminField({ label, hint, children }) {
+  return (
+    <div>
+      <label className={labelClass}>{label}</label>
+      {children}
+      {hint ? <p className={hintClass}>{hint}</p> : null}
+    </div>
+  )
+}
+
+const PROJECT_FIELDS = [
+  {
+    key: 'title',
+    label: 'Project name',
+    placeholder: 'e.g. Calilio',
+    hint: 'The title shown on work cards and at the top of the case study page.',
+    required: true,
+  },
+  {
+    key: 'slug',
+    label: 'Link name (for URL)',
+    placeholder: 'e.g. calilio',
+    hint: 'Creates the page link /projects/calilio — use lowercase letters, numbers, or hyphens only.',
+    required: true,
+  },
+  {
+    key: 'category',
+    label: 'Category',
+    placeholder: 'e.g. VoIP, Mobile App, SaaS',
+    hint: 'Small orange label above the project name (e.g. VoIP).',
+  },
+  {
+    key: 'image_path',
+    label: 'Hero image file path',
+    placeholder: 'Filled automatically after upload, or e.g. projects/calilio.svg',
+    hint: 'Main image at the top of the case study. Upload below or paste a storage path.',
+  },
+  {
+    key: 'image_alt',
+    label: 'Hero image description',
+    placeholder: 'e.g. Calilio call dashboard on desktop',
+    hint: 'Short description for screen readers and SEO.',
+  },
+  {
+    key: 'pad_color',
+    label: 'Card background color',
+    placeholder: '#111113',
+    hint: 'Hex color behind the project thumbnail on the homepage stack.',
+  },
+]
+
+function starterCaseStudy() {
+  return {
+    ...emptyCaseStudy(),
+    meta: defaultMetaRows(),
+    blocks: [emptySectionBlock()],
+    credits: { heading: 'Credits', columns: [] },
+  }
+}
 
 const emptyProject = {
   id: null,
@@ -15,7 +84,7 @@ const emptyProject = {
   image_path: '',
   image_alt: '',
   sort_order: 0,
-  case_study: '{}',
+  caseStudy: starterCaseStudy(),
 }
 
 export default function AdminProjects() {
@@ -31,7 +100,7 @@ export default function AdminProjects() {
     setForm({
       ...p,
       tags: (p.tags ?? []).join(', '),
-      case_study: JSON.stringify(p.case_study ?? {}, null, 2),
+      caseStudy: normalizeCaseStudy(p.case_study ?? {}),
     })
   }
 
@@ -43,14 +112,6 @@ export default function AdminProjects() {
     e.preventDefault()
     setMessage('')
     try {
-      let caseStudy = {}
-      try {
-        caseStudy = JSON.parse(form.case_study || '{}')
-      } catch {
-        setMessage('Case study must be valid JSON.')
-        return
-      }
-
       const row = projectToRow({
         slug: form.slug,
         category: form.category,
@@ -61,12 +122,13 @@ export default function AdminProjects() {
         imagePath: form.image_path,
         imageAlt: form.image_alt,
         sortOrder: Number(form.sort_order) || 0,
-        caseStudy,
+        caseStudy: form.caseStudy,
       })
 
       await upsertProject(row, form.id)
       await queryClient.invalidateQueries({ queryKey: ['portfolio'] })
       await queryClient.invalidateQueries({ queryKey: ['admin-projects'] })
+      await queryClient.invalidateQueries({ queryKey: ['project', form.slug] })
       setMessage('Project saved.')
       resetForm()
     } catch (err) {
@@ -87,7 +149,7 @@ export default function AdminProjects() {
     try {
       const path = await uploadImage(file, 'projects')
       setForm((f) => ({ ...f, image_path: path }))
-      setMessage('Image uploaded.')
+      setMessage('Hero image uploaded — path filled in automatically.')
     } catch (err) {
       setMessage(err.message)
     }
@@ -98,6 +160,11 @@ export default function AdminProjects() {
   return (
     <div>
       <h1 className="text-2xl font-bold">Projects</h1>
+      <p className="mt-2 max-w-2xl text-sm text-[#8A8A93]">
+        Add or edit projects and their case study pages. <strong className="font-medium text-[#c4c4cc]">Short description</strong>{' '}
+        appears on the homepage; the <strong className="font-medium text-[#c4c4cc]">case study</strong> section below
+        builds the full project page.
+      </p>
 
       <ul className="mt-6 space-y-2">
         {projects.map((p) => (
@@ -118,65 +185,75 @@ export default function AdminProjects() {
         ))}
       </ul>
 
-      <form onSubmit={handleSubmit} className="mt-10 max-w-2xl space-y-4 border-t border-white/10 pt-10">
+      <form onSubmit={handleSubmit} className="mt-10 max-w-3xl space-y-5 border-t border-white/10 pt-10">
         <h2 className="text-lg font-semibold">{form.id ? 'Edit project' : 'New project'}</h2>
-        {['slug', 'category', 'title', 'image_path', 'image_alt', 'pad_color'].map((key) => (
-          <div key={key}>
-            <label className="mb-2 block text-sm capitalize">{key.replace('_', ' ')}</label>
+
+        {PROJECT_FIELDS.map(({ key, label, placeholder, hint, required }) => (
+          <AdminField key={key} label={label} hint={hint}>
             <input
               value={form[key] ?? ''}
               onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
-              className="w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 outline-none focus:border-[#FF5733]/50"
-              required={key === 'slug' || key === 'title'}
+              placeholder={placeholder}
+              className={inputClass}
+              required={required}
             />
-          </div>
+          </AdminField>
         ))}
-        <div>
-          <label className="mb-2 block text-sm">Upload image</label>
+
+        <AdminField
+          label="Upload hero image"
+          hint="Choose a PNG or JPG — the file path field above updates automatically after upload."
+        >
           <input type="file" accept="image/*" onChange={handleImageUpload} className="text-sm text-[#8A8A93]" />
-        </div>
-        <div>
-          <label className="mb-2 block text-sm">Description</label>
+        </AdminField>
+
+        <AdminField
+          label="Short description"
+          hint="One or two sentences on the homepage work card and on the /projects list."
+        >
           <textarea
-            rows={4}
+            rows={3}
             value={form.description ?? ''}
             onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
-            className="w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 outline-none focus:border-[#FF5733]/50"
+            placeholder="e.g. A cloud business phone platform with responsive marketing pages and a unified callbox UI."
+            className={textareaClass}
           />
-        </div>
-        <div>
-          <label className="mb-2 block text-sm">Tags (comma-separated)</label>
+        </AdminField>
+
+        <AdminField label="Tags" hint="Separate with commas — shown as pills on the project page.">
           <input
             value={form.tags ?? ''}
             onChange={(e) => setForm((f) => ({ ...f, tags: e.target.value }))}
-            className="w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 outline-none focus:border-[#FF5733]/50"
+            placeholder="e.g. Web App, UI Design, Responsive Design, VoIP"
+            className={inputClass}
           />
-        </div>
-        <div>
-          <label className="mb-2 block text-sm">Sort order</label>
+        </AdminField>
+
+        <AdminField
+          label="Display order"
+          hint="Lower numbers appear first in Selected Work (0 = first)."
+        >
           <input
             type="number"
             value={form.sort_order ?? 0}
             onChange={(e) => setForm((f) => ({ ...f, sort_order: e.target.value }))}
-            className="w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 outline-none focus:border-[#FF5733]/50"
+            placeholder="0"
+            className={inputClass}
           />
-        </div>
-        <div>
-          <label className="mb-2 block text-sm">Case study (JSON)</label>
-          <textarea
-            rows={8}
-            value={form.case_study ?? '{}'}
-            onChange={(e) => setForm((f) => ({ ...f, case_study: e.target.value }))}
-            className="w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 font-mono text-sm outline-none focus:border-[#FF5733]/50"
-          />
-        </div>
-        <div className="flex gap-3">
-          <button type="submit" className="rounded-lg bg-[#FF5733] px-6 py-2 text-sm font-semibold">
+        </AdminField>
+
+        <CaseStudyEditor
+          value={form.caseStudy}
+          onChange={(caseStudy) => setForm((f) => ({ ...f, caseStudy }))}
+        />
+
+        <div className="flex gap-3 pt-4">
+          <button type="submit" className="rounded-lg bg-[#FF5733] px-6 py-2.5 text-sm font-semibold text-white hover:opacity-90">
             Save project
           </button>
           {form.id && (
-            <button type="button" onClick={resetForm} className="text-sm text-[#8A8A93]">
-              Cancel edit
+            <button type="button" onClick={resetForm} className="text-sm text-[#8A8A93] hover:text-white">
+              Cancel
             </button>
           )}
         </div>

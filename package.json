@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "changelog": "node scripts/changelog.mjs"
+    "changelog": "node scripts/changelog.mjs",
+    "sync:case-studies": "node scripts/sync-case-studies.mjs",
+    "sync:calilio-case-study": "node scripts/sync-calilio-case-study.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.114.0",

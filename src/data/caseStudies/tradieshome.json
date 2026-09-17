@@ -1,0 +1,124 @@
+{
+  "tagline": "Connect Tradies and Homeowners through clear, mobile-first job flows.",
+  "meta": [
+    { "label": "Deliverables", "value": "Mobile App, User Flows, Wireframes, UI & UX design" },
+    { "label": "Teams", "value": "2 Designers + 6 Developers" },
+    { "label": "Timeline", "value": "16 weeks" }
+  ],
+  "blocks": [
+    {
+      "type": "section",
+      "heading": "Context",
+      "items": [
+        {
+          "type": "paragraph",
+          "text": "TradiesHome is a dual-sided job portal connecting Tradies (professionals seeking work) with Homeowners (clients posting jobs). The platform needed discovery, matching, and communication to feel straightforward on mobile."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Tradies browse and apply to relevant jobs with clear requirements and location context.",
+            "Homeowners post jobs, review applicants, and manage communication in one place.",
+            "Both sides share a consistent design language while keeping role-specific flows distinct."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "media",
+      "images": [{ "path": "projects/tradieshome.svg", "alt": "TradiesHome job portal mobile interface" }]
+    },
+    {
+      "type": "section",
+      "heading": "Scope",
+      "items": [
+        {
+          "type": "list",
+          "items": [
+            "Separate onboarding and home experiences for Tradies vs Homeowners.",
+            "Job posting, discovery, and application flows.",
+            "Profile, messaging, and status tracking patterns.",
+            "Responsive mobile UI with reusable components."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "My Roles",
+      "items": [
+        { "type": "subheading", "text": "UX/UI Designer" },
+        {
+          "type": "list",
+          "items": [
+            "Designed dual-sided user flows from wireframes to high-fidelity UI.",
+            "Ran design reviews to align Tradies and Homeowner experiences.",
+            "Partnered with developers on handoff and interaction details."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "Tools",
+      "items": [{ "type": "paragraph", "text": "Figma, Miro, Slack" }]
+    },
+    {
+      "type": "section",
+      "heading": "Challenges",
+      "items": [
+        {
+          "type": "paragraph",
+          "text": "Marketplace products with two user types introduce unique UX friction:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Two distinct user types with different goals needed intuitive onboarding and job flows.",
+            "Job discovery had to surface the right opportunities without overwhelming Tradies.",
+            "Homeowners needed confidence that posted jobs would attract qualified applicants."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "Goals/Features",
+      "items": [
+        {
+          "type": "list",
+          "items": [
+            "Role-based onboarding with clear first actions.",
+            "Searchable job feed with filters for trade, location, and urgency.",
+            "Structured job detail pages with apply CTA and status visibility.",
+            "Shared component library for cards, tags, and messaging entry points."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "Solution",
+      "items": [
+        {
+          "type": "paragraph",
+          "text": "Separate but connected flows for Tradies and Homeowners with a shared design language—each role gets tailored screens while navigation and visual patterns stay consistent."
+        }
+      ]
+    }
+  ],
+  "credits": {
+    "heading": "Credits",
+    "columns": [
+      {
+        "label": "Services",
+        "items": ["User Interface Design", "User Experience Design", "Wireframing"]
+      },
+      { "label": "Tools", "items": ["Figma", "Miro"] },
+      {
+        "label": "Teams",
+        "groups": [{ "label": "Product Designer", "members": ["Ankit Shrestha"] }]
+      }
+    ]
+  }
+}

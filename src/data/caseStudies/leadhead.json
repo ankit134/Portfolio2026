@@ -1,0 +1,120 @@
+{
+  "tagline": "Keep customer relationships organized with a clear sales dashboard.",
+  "meta": [
+    { "label": "Deliverables", "value": "Web App, Dashboard UI, Information Architecture, Prototyping" },
+    { "label": "Teams", "value": "1 Designer + 4 Developers" },
+    { "label": "Timeline", "value": "10 weeks" }
+  ],
+  "blocks": [
+    {
+      "type": "section",
+      "heading": "Context",
+      "items": [
+        {
+          "type": "paragraph",
+          "text": "Leadhead is a business software system for keeping customer contacts up to date and tracking every customer account—structured dashboards and detail views to support sales and relationship management."
+        },
+        {
+          "type": "paragraph",
+          "text": "Sales teams needed dense CRM data presented with hierarchy, filters, and drill-down views that stay usable during daily workflow."
+        }
+      ]
+    },
+    {
+      "type": "media",
+      "images": [{ "path": "projects/leadhead.svg", "alt": "Leadhead CRM sales pipeline dashboard" }]
+    },
+    {
+      "type": "section",
+      "heading": "Scope",
+      "items": [
+        {
+          "type": "list",
+          "items": [
+            "Pipeline dashboard with account and contact overview.",
+            "Detail views for individual customer records and activity.",
+            "Filtering, sorting, and search across high-density tables.",
+            "Design system patterns for cards, tables, and status indicators."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "My Roles",
+      "items": [
+        { "type": "subheading", "text": "UX/UI Designer" },
+        {
+          "type": "list",
+          "items": [
+            "Defined information architecture for accounts, contacts, and pipeline stages.",
+            "Designed dashboard layouts and detail screens in Figma.",
+            "Validated hierarchy and density with stakeholder feedback."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "Tools",
+      "items": [{ "type": "paragraph", "text": "Figma, Notion, Slack" }]
+    },
+    {
+      "type": "section",
+      "heading": "Challenges",
+      "items": [
+        {
+          "type": "paragraph",
+          "text": "CRM interfaces often overwhelm users when every metric competes for attention:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Sales teams needed dense data presented without overwhelming the interface.",
+            "Multiple account states and contact histories had to remain scannable.",
+            "Power users wanted quick access to filters while newcomers needed clarity."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "Goals/Features",
+      "items": [
+        {
+          "type": "list",
+          "items": [
+            "Pipeline overview with stage-based organization.",
+            "Account detail pages with contact history and next actions.",
+            "Global search and filter controls for large datasets.",
+            "Consistent status colors and typography for at-a-glance reading."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "heading": "Solution",
+      "items": [
+        {
+          "type": "paragraph",
+          "text": "Structured dashboard with clear hierarchy, filters, and detail drill-down views—balancing information density with readable spacing and predictable navigation."
+        }
+      ]
+    }
+  ],
+  "credits": {
+    "heading": "Credits",
+    "columns": [
+      {
+        "label": "Services",
+        "items": ["Information Architecture", "User Interface Design", "Prototyping"]
+      },
+      { "label": "Tools", "items": ["Figma"] },
+      {
+        "label": "Teams",
+        "groups": [{ "label": "Product Designer", "members": ["Ankit Shrestha"] }]
+      }
+    ]
+  }
+}

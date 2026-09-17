@@ -1,4 +1,5 @@
 import { resolveImageUrl } from './imageUrl'
+import { resolveCaseStudy } from './caseStudy'
 
 export function mapSiteSettings(row) {
   if (!row) return null
@@ -35,7 +36,7 @@ export function mapProject(row) {
     imagePath: row.image_path,
     imageAlt: row.image_alt,
     sortOrder: row.sort_order,
-    caseStudy: row.case_study ?? {},
+    caseStudy: resolveCaseStudy(row.case_study ?? {}),
   }
 }
 
