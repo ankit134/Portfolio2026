@@ -27,6 +27,34 @@ function isPointerContextValid(container, cta, clientX, clientY) {
   return container.contains(hit) || cta?.contains(hit) || hit === cta
 }
 
+function paintFollow(refs, instant, reducedMotion) {
+  const { ctaRef, clientRef, targetRef, currentRef, rafRef } = refs
+  const cta = ctaRef.current
+  if (!cta || !clientRef.current.active) return
+
+  const target = targetRef.current
+  const current = currentRef.current
+
+  if (instant || reducedMotion) {
+    currentRef.current = { ...target }
+    applyCtaPosition(cta, target.x, target.y)
+    return
+  }
+
+  const nextX = current.x + (target.x - current.x) * FOLLOW_EASE
+  const nextY = current.y + (target.y - current.y) * FOLLOW_EASE
+  const settled = Math.abs(nextX - target.x) < 0.35 && Math.abs(nextY - target.y) < 0.35
+
+  currentRef.current = settled ? { ...target } : { x: nextX, y: nextY }
+  applyCtaPosition(cta, currentRef.current.x, currentRef.current.y)
+
+  if (!settled) {
+    rafRef.current = requestAnimationFrame(() => paintFollow(refs, false, reducedMotion))
+  } else {
+    rafRef.current = 0
+  }
+}
+
 /** Positions a floating CTA at the pointer inside `containerRef`. */
 export function usePointerFollow(enabled = true) {
   const containerRef = useRef(null)
@@ -37,6 +65,11 @@ export function usePointerFollow(enabled = true) {
   const rafRef = useRef(0)
   const reducedMotion = usePrefersReducedMotion()
   const followPointer = enabled && !reducedMotion
+
+  const getPaintRefs = useCallback(
+    () => ({ ctaRef, clientRef, targetRef, currentRef, rafRef }),
+    [],
+  )
 
   const showCta = useCallback(() => {
     ctaRef.current?.classList.add('work-card__cta--visible')
@@ -66,37 +99,6 @@ export function usePointerFollow(enabled = true) {
     return { x, y }
   }, [followPointer])
 
-  const paint = useCallback(
-    (instant = false) => {
-      const cta = ctaRef.current
-      if (!cta || !clientRef.current.active) return
-
-      const target = targetRef.current
-      const current = currentRef.current
-
-      if (instant || reducedMotion) {
-        currentRef.current = { ...target }
-        applyCtaPosition(cta, target.x, target.y)
-        return
-      }
-
-      const nextX = current.x + (target.x - current.x) * FOLLOW_EASE
-      const nextY = current.y + (target.y - current.y) * FOLLOW_EASE
-      const settled =
-        Math.abs(nextX - target.x) < 0.35 && Math.abs(nextY - target.y) < 0.35
-
-      currentRef.current = settled ? { ...target } : { x: nextX, y: nextY }
-      applyCtaPosition(cta, currentRef.current.x, currentRef.current.y)
-
-      if (!settled) {
-        rafRef.current = requestAnimationFrame(() => paint(false))
-      } else {
-        rafRef.current = 0
-      }
-    },
-    [reducedMotion],
-  )
-
   const schedulePaint = useCallback(
     (instant = false) => {
       if (!clientRef.current.active) return
@@ -107,16 +109,18 @@ export function usePointerFollow(enabled = true) {
           rafRef.current = 0
         }
         recalcTarget()
-        paint(true)
+        paintFollow(getPaintRefs(), true, reducedMotion)
         return
       }
 
       recalcTarget()
       if (!rafRef.current) {
-        rafRef.current = requestAnimationFrame(() => paint(false))
+        rafRef.current = requestAnimationFrame(() =>
+          paintFollow(getPaintRefs(), false, reducedMotion),
+        )
       }
     },
-    [paint, recalcTarget],
+    [getPaintRefs, recalcTarget, reducedMotion],
   )
 
   const validatePointer = useCallback(

@@ -65,11 +65,6 @@ export const SECTION_ITEM_TYPES = [
   { value: 'callout', label: 'Callout' },
 ]
 
-export const BLOCK_TYPES = [
-  { value: 'section', label: 'Section' },
-  { value: 'media', label: 'Images' },
-]
-
 export const DEFAULT_META_LABELS = ['Deliverables', 'Teams', 'Timeline']
 
 /** Starter meta rows for new projects. */

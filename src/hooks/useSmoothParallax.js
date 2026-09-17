@@ -11,10 +11,7 @@ export function useSmoothParallax(speed = 0.15) {
   const reducedMotion = usePrefersReducedMotion()
 
   useEffect(() => {
-    if (reducedMotion) {
-      setOffset(0)
-      return
-    }
+    if (reducedMotion) return
 
     let rafId = 0
 

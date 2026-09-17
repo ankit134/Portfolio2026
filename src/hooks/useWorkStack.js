@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { usePrefersReducedMotion } from './usePrefersReducedMotion'
 
 export const STACK_PIN = 152
@@ -16,14 +16,13 @@ export function useWorkStack(itemRefs, count) {
     Array.from({ length: count }, () => ({})),
   )
   const reducedMotion = usePrefersReducedMotion()
+  const neutralStyles = useMemo(
+    () => Array.from({ length: count }, () => ({})),
+    [count],
+  )
 
   useEffect(() => {
-    if (!count) return
-
-    if (reducedMotion) {
-      setCardStyles(Array.from({ length: count }, () => ({})))
-      return
-    }
+    if (!count || reducedMotion) return
 
     let rafId = 0
 
@@ -83,5 +82,5 @@ export function useWorkStack(itemRefs, count) {
     }
   }, [itemRefs, count, reducedMotion])
 
-  return cardStyles
+  return reducedMotion ? neutralStyles : cardStyles
 }

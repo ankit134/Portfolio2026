@@ -15,10 +15,7 @@ export function useInViewProgress(options = {}) {
   const reducedMotion = usePrefersReducedMotion()
 
   useEffect(() => {
-    if (reducedMotion) {
-      setProgress(1)
-      return
-    }
+    if (reducedMotion) return
 
     let rafId = 0
 
@@ -52,7 +49,7 @@ export function useInViewProgress(options = {}) {
     }
   }, [start, end, reducedMotion])
 
-  return { ref, progress }
+  return { ref, progress: reducedMotion ? 1 : progress }
 }
 
 export function framerEase(t) {

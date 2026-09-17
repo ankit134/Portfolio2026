@@ -14,10 +14,7 @@ export default function Reveal({
   const reducedMotion = usePrefersReducedMotion()
 
   useEffect(() => {
-    if (reducedMotion) {
-      setVisible(true)
-      return
-    }
+    if (reducedMotion) return
 
     const el = ref.current
     if (!el) return
@@ -48,7 +45,7 @@ export default function Reveal({
   return (
     <Tag
       ref={ref}
-      className={`reveal ${directionClass} ${blur ? 'reveal-blur' : ''} ${visible ? 'reveal-visible' : ''} ${className}`}
+      className={`reveal ${directionClass} ${blur ? 'reveal-blur' : ''} ${reducedMotion || visible ? 'reveal-visible' : ''} ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
