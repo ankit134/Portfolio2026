@@ -1,13 +1,25 @@
+import { Link, useLocation } from 'react-router-dom'
 import { navLinks } from '../data/content'
 import { usePortfolio } from '../hooks/usePortfolio'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useNavScrolled } from '../hooks/useNavScrolled'
-import { Link } from 'react-router-dom'
+
+function isHashLink(href) {
+  return href.includes('#')
+}
+
+function hashSectionId(href) {
+  const hash = href.split('#')[1]
+  return hash ?? ''
+}
 
 export default function Navbar() {
   const { profile } = usePortfolio()
   const scrolled = useNavScrolled()
-  const active = useActiveSection(navLinks.map((l) => l.href.replace('/#', '#')))
+  const { pathname } = useLocation()
+
+  const hashSectionIds = navLinks.filter((l) => isHashLink(l.href)).map((l) => `#${hashSectionId(l.href)}`)
+  const activeSection = useActiveSection(hashSectionIds)
 
   return (
     <nav
@@ -27,16 +39,22 @@ export default function Navbar() {
         </Link>
         <ul className="flex items-center gap-6 md:gap-10">
           {navLinks.map((link) => {
-            const id = link.href.replace('/#', '').replace('#', '')
-            const isActive = active === id
+            const sectionId = hashSectionId(link.href)
+            const isRouteActive =
+              !isHashLink(link.href) &&
+              (pathname === link.href || pathname.startsWith(`${link.href}/`))
+            const isHashActive =
+              isHashLink(link.href) && pathname === '/' && activeSection === sectionId
+            const isActive = isRouteActive || isHashActive
+
             return (
               <li key={link.href}>
-                <a
-                  href={link.href}
+                <Link
+                  to={link.href}
                   className={`nav-link text-sm font-medium text-[#8A8A93] hover:text-white ${isActive ? 'nav-link-active' : ''}`}
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             )
           })}

@@ -1,23 +1,37 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 
+function readScrollProgress() {
+  const scrollTop = window.scrollY
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight
+  return docHeight > 0 ? (scrollTop / docHeight) * 100 : 0
+}
+
 export default function ScrollProgress() {
-  const [progress, setProgress] = useState(0)
+  const { pathname } = useLocation()
   const reducedMotion = usePrefersReducedMotion()
+  const [progress, setProgress] = useState(() =>
+    reducedMotion ? 0 : readScrollProgress(),
+  )
+
+  const update = useCallback(() => {
+    setProgress(readScrollProgress())
+  }, [])
 
   useEffect(() => {
     if (reducedMotion) return
 
-    const update = () => {
-      const scrollTop = window.scrollY
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0)
-    }
-
-    update()
+    const frame = requestAnimationFrame(update)
     window.addEventListener('scroll', update, { passive: true })
-    return () => window.removeEventListener('scroll', update)
-  }, [reducedMotion])
+    window.addEventListener('resize', update, { passive: true })
+
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [reducedMotion, update, pathname])
 
   if (reducedMotion) return null
 

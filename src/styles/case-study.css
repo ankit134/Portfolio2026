@@ -11,15 +11,11 @@
 
 .case-study__back {
   display: inline-block;
+  margin-bottom: 1.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--cs-muted);
-  text-decoration: none;
-  transition: color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.case-study__back:hover {
   color: #fff;
+  text-decoration: none;
 }
 
 .case-study__back:focus-visible {
@@ -291,8 +287,3 @@
   color: var(--cs-soft);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .case-study__back {
-    transition: none;
-  }
-}

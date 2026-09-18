@@ -50,9 +50,10 @@ export default function Contact() {
                 id="contact-name"
                 type="text"
                 required
+                placeholder="Your name"
                 value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                className="w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 text-white outline-none transition-colors focus:border-[#FF5733]/50"
+                className="w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 text-white outline-none transition-colors placeholder:text-sm placeholder:font-normal placeholder:text-[#8A8A93]/70 focus:border-[#FF5733]/50"
               />
             </div>
             <div>
@@ -63,9 +64,10 @@ export default function Contact() {
                 id="contact-email"
                 type="email"
                 required
+                placeholder="you@example.com"
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                className="w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 text-white outline-none transition-colors focus:border-[#FF5733]/50"
+                className="w-full rounded-lg border border-white/10 bg-[#161616] px-4 py-3 text-white outline-none transition-colors placeholder:text-sm placeholder:font-normal placeholder:text-[#8A8A93]/70 focus:border-[#FF5733]/50"
               />
             </div>
             <div>
@@ -76,9 +78,10 @@ export default function Contact() {
                 id="contact-message"
                 required
                 rows={5}
+                placeholder="Tell me about your project, role, or collaboration idea…"
                 value={form.message}
                 onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                className="w-full resize-y rounded-lg border border-white/10 bg-[#161616] px-4 py-3 text-white outline-none transition-colors focus:border-[#FF5733]/50"
+                className="w-full resize-y rounded-lg border border-white/10 bg-[#161616] px-4 py-3 text-white outline-none transition-colors placeholder:text-sm placeholder:font-normal placeholder:text-[#8A8A93]/70 focus:border-[#FF5733]/50"
               />
             </div>
             <button

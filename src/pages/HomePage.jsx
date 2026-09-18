@@ -6,7 +6,6 @@ import Experience from '../components/Experience'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import AmbientBackground from '../components/AmbientBackground'
-import ScrollProgress from '../components/ScrollProgress'
 import { PortfolioProvider } from '../context/PortfolioContext'
 import { usePortfolioData } from '../hooks/usePortfolioData'
 
@@ -45,7 +44,6 @@ function HomeContent() {
         </div>
       )}
       <div className="relative min-h-screen overflow-x-clip bg-[#0B0B0B] font-sans antialiased">
-        <ScrollProgress />
         <AmbientBackground />
         <Navbar />
         <main className="overflow-visible">

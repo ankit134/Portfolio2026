@@ -17,7 +17,7 @@ export function CaseStudyArrow() {
 
 /** Shared hover CTA — `className` e.g. recent-works__cta or work-card__cta */
 const CaseStudyCta = forwardRef(function CaseStudyCta(
-  { projectSlug, enabled, className = '' },
+  { projectSlug, enabled, className = '', linkState },
   ref,
 ) {
   const classes =
@@ -28,6 +28,7 @@ const CaseStudyCta = forwardRef(function CaseStudyCta(
       <Link
         ref={ref}
         to={`/projects/${projectSlug}`}
+        state={linkState}
         className={classes}
         onClick={(e) => e.stopPropagation()}
       >

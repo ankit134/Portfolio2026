@@ -1,6 +1,7 @@
 import { forwardRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { hasCaseStudy } from '../../lib/caseStudy'
+import { selectedWorkCaseStudyState } from '../../lib/caseStudyNavigation'
 import { getCardPin } from '../../hooks/useWorkStack'
 import { useMinLg } from '../../hooks/useMinLg'
 import { usePointerFollow } from '../../hooks/usePointerFollow'
@@ -27,14 +28,14 @@ const ProjectStackCard = forwardRef(function ProjectStackCard(
 
   function handleCardClick() {
     if (caseStudyReady) {
-      navigate(`/projects/${project.id}`)
+      navigate(`/projects/${project.id}`, { state: selectedWorkCaseStudyState() })
     }
   }
 
   function handleKeyDown(e) {
     if (caseStudyReady && (e.key === 'Enter' || e.key === ' ')) {
       e.preventDefault()
-      navigate(`/projects/${project.id}`)
+      navigate(`/projects/${project.id}`, { state: selectedWorkCaseStudyState() })
     }
   }
 
@@ -87,6 +88,7 @@ const ProjectStackCard = forwardRef(function ProjectStackCard(
             ref={ctaRef}
             projectSlug={project.id}
             enabled={caseStudyReady}
+            linkState={selectedWorkCaseStudyState()}
             className={`work-card__cta${followPointer ? ' work-card__cta--follow' : ''}`}
           />
         ) : null}
