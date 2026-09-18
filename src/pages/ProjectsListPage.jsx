@@ -5,6 +5,7 @@ import AmbientBackground from '../components/AmbientBackground'
 import ProjectListItem from '../components/selected-work/ProjectListItem'
 import { PortfolioProvider } from '../context/PortfolioContext'
 import { usePortfolioData } from '../hooks/usePortfolioData'
+import '../styles/case-study.css'
 import '../styles/recent-works.css'
 
 function ProjectsListContent() {
@@ -37,10 +38,7 @@ function ProjectsListContent() {
         <main className="recent-works">
           <div className="recent-works__inner">
             <header className="recent-works__header">
-              <Link
-                to="/#work"
-                className="mb-6 inline-block text-sm font-medium text-[#8A8A93] transition-colors hover:text-white"
-              >
+              <Link to="/#work" className="case-study__back">
                 ← Back to home
               </Link>
               <h1 className="recent-works__title">Recent works</h1>

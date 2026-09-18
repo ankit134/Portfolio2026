@@ -1,4 +1,5 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
+import { CASE_STUDY_FROM } from '../lib/caseStudyNavigation'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import AmbientBackground from '../components/AmbientBackground'
@@ -11,6 +12,8 @@ import '../styles/case-study.css'
 
 function ProjectContent() {
   const { slug } = useParams()
+  const { state } = useLocation()
+  const hideBackLink = state?.from === CASE_STUDY_FROM.SELECTED_WORK
   const { data: portfolio } = usePortfolioData()
   const { data: project, isLoading, isError } = useProject(slug)
 
@@ -42,9 +45,11 @@ function ProjectContent() {
         <Navbar />
         <main className="px-5 py-16 md:px-8 md:py-24">
           <div className="mx-auto max-w-4xl">
-            <Link to="/projects" className="case-study__back">
-              ← Back to projects
-            </Link>
+            {!hideBackLink ? (
+              <Link to="/projects" className="case-study__back">
+                ← Back to projects
+              </Link>
+            ) : null}
 
             {showCaseStudy ? (
               <CaseStudyContent caseStudy={project.caseStudy} project={project} />
