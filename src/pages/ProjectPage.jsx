@@ -1,5 +1,4 @@
 import { Link, useParams } from 'react-router-dom'
-import { useMinLg } from '../hooks/useMinLg'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import AmbientBackground from '../components/AmbientBackground'
@@ -12,10 +11,8 @@ import '../styles/case-study.css'
 
 function ProjectContent() {
   const { slug } = useParams()
-  const isDesktop = useMinLg()
   const { data: portfolio } = usePortfolioData()
   const { data: project, isLoading, isError } = useProject(slug)
-  const backTo = isDesktop ? '/#work' : '/projects'
 
   if (isLoading || !portfolio) {
     return (
@@ -45,8 +42,8 @@ function ProjectContent() {
         <Navbar />
         <main className="px-5 py-16 md:px-8 md:py-24">
           <div className="mx-auto max-w-4xl">
-            <Link to={backTo} className="case-study__back">
-              ← Back to project
+            <Link to="/projects" className="case-study__back">
+              ← Back to projects
             </Link>
 
             {showCaseStudy ? (
